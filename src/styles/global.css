@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+--color-accent:oklch(0.6417 0.1547 266);
+--color-primary:white;
+--color-text:oklch(1 0 0 / 70%);
+--color-secondary:oklch(0.2309 0.0227 265.62);
+--color-background:black;
+--color-subtext:oklch(1 0 0 / 50%);
+--font-Archivo:"Archivo Black", sans-serif;
+
+
+--animate-gradient:gradient 5s linear infinite;
+
+@keyframes gradient{
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    
+    50% {
+        background-position: 100% 50%;
+    }
+}
+}
+
+@layer base{
+    h1{
+        font-size: 84px;
+    }
+    h2{
+        font-size: 72px;
+    }
+    h3{
+        font-size: 64px;
+    }
+    h4{
+        font-size: 32px;
+    }
+    h5{
+        font-size: 20px;
+    }
+    p{
+        font-family: "Nunito Sans", sans-serif;
+        font-size: 24px;
+    }
+    
+}
