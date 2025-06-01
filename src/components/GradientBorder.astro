@@ -1,0 +1,14 @@
+---
+const { animated } = Astro.props;
+---
+
+<div
+  class="relative  rounded-sm  bg-transparent "
+>
+  <slot />
+  <div
+    class=`absolute  -z-10 inset-0  rounded-sm bg-radial-gradient blur-sm`
+  >
+  </div>
+</div>
+ 
