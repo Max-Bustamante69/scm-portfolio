@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme {
   --color-accent: oklch(0.6417 0.1547 266);
@@ -11,18 +14,24 @@
   --color-gradient-start: #49bce2;
   --color-gradient-end: #2621b4;
   --font-Archivo: "Archivo Black", sans-serif;
+  --font-Nunito: "Nunito Sans", sans-serif;
 
-  --animate-gradient: gradient 3s linear infinite;
+  --animate-gradient: gradient 8s linear infinite;
+  --animate-rotate: rotate 5s ease-in-out infinite;
 
+  
+
+ 
   @keyframes gradient {
     0% {
       background-position: 0% 50%;
     }
-
     100% {
       background-position: 100% 50%;
     }
   }
+  
+
 }
 
 @layer base {
@@ -45,7 +54,51 @@
     font-size: 20px;
   }
   p {
-    font-family: "Nunito Sans", sans-serif;
     font-size: 24px;
+  }
+
+  button, p{
+    font-family: "Nunito Sans", sans-serif;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.bg-radial-gradient {
+  background-image: conic-gradient(
+    from var(--angle),
+    var(--color-gradient-start) 0deg,
+    var(--color-gradient-end) 180deg,
+    var(--color-gradient-start) 360deg
+  );
+  
+  animation: 3s linear infinite rotate-gradient;
+
+}
+
+
+.bg-gradient {
+  /* Four stops: start, end, start, end */
+  background-image: linear-gradient(
+    90deg,
+    var(--color-gradient-start) 0%,
+    var(--color-gradient-end) 33%,
+    var(--color-gradient-start) 66%,
+    var(--color-gradient-end) 100%
+  );
+
+}
+
+
+@keyframes rotate-gradient {
+  to {
+    --angle: 0deg;
+  }
+  from {
+    --angle: 360deg;
   }
 }
