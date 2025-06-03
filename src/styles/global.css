@@ -5,6 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  --color-foreground:oklch(31.83% 0.036 266.71);
   --color-accent: oklch(0.6417 0.1547 266);
   --color-primary: white;
   --color-text: oklch(1 0 0 / 70%);
@@ -23,7 +24,6 @@
   --animate-gradient: gradient 8s linear infinite;
   --animate-rotate-gradient: rotate-gradient 2s ease-in-out infinite;
 
-  
   @keyframes rotate-gradient {
     to {
       --angle: 0deg;

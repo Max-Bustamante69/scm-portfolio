@@ -13,6 +13,15 @@ const experiences = defineCollection({
   }),
 });
 
+const skills = defineCollection({
+  schema: z.object({
+    skillName: z.string(),
+    description: z.string(),
+    icon: z.string(),
+    proficiency: z.number(),
+  }),
+});
+
 export const collections = {
-  experiences,
+  experiences, skills,
 };

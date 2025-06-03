@@ -8,14 +8,17 @@ import SkillTag from "@/components/SkillTag.astro";
 import ExperienceCard from "@/components/ExperienceCard.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import ExperienceSelector from "@/components/ExperienceSelector.astro";
-
+import SkillCard from "@/components/SkillCard.astro";
 type Experience = CollectionEntry<"experiences">;
 
 const experiences: Experience[] = await getCollection("experiences");
 ---
 
 <Layout>
-  <div class="flex flex-col items-center justify-center gap-12">
+  
+  <div class="flex flex-col items-center justify-center  gap-12">
+    <div><SkillCard/></div>
+    
     <div class="flex flex-col items-center space-y-4">
       <h1>
         Hey, I'm Sebastian
