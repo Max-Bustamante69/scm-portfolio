@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import GradientText from "../components/GradientText.astro";
-import { Button } from "@/components/ui/button";
+import Button from "@/components/Button.astro";
 import ExperienceSummary from "@/components/ExperienceSummary.astro";
 import GradientBorder from "@/components/GradientBorder.astro";
 import SkillTag from "@/components/SkillTag.astro";
@@ -15,7 +15,7 @@ const experiences: Experience[] = await getCollection("experiences");
 ---
 
 <Layout>
-  <div class="flex flex-col items-center justify-center  gap-12">
+  <div class="flex flex-col items-center justify-center gap-12">
     <div class="flex flex-col items-center space-y-4">
       <h1>
         Hey, I'm Sebastian
@@ -57,7 +57,7 @@ const experiences: Experience[] = await getCollection("experiences");
       <SkillTag>Astro</SkillTag>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {
         experiences.map((exp) => (
           <ExperienceCard
@@ -71,10 +71,18 @@ const experiences: Experience[] = await getCollection("experiences");
         ))
       }
     </div>
+    
+      <div
+        class=" flex flex-col align-start p-4 bg-secondary border border-accent rounded-2xl"
+      >
+        <GradientBorder animated={true}>
+          <Button variant={"gradient"}>Select Experience</Button>
+        </GradientBorder>
+      </div>
+   
 
     <div class="w-full flex flex-col items-center space-y-4">
       <ExperienceSelector experiences={experiences} />
-
     </div>
   </div>
 </Layout>

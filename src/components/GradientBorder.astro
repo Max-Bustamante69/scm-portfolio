@@ -1,14 +1,19 @@
 ---
-const { blur } = Astro.props;
+const { blur, class:className } = Astro.props;
 ---
 
-<div
-  class="relative size-full rounded-sm  bg-transparent p-0.5 group"
->
-  <slot />
+<div class=`relative  rounded-sm p-0.5 group ${className || ""}`}>
   <div
-    class:list={["absolute  -z-10 inset-0  rounded-sm bg-radial-gradient ", blur ? "blur-sm opacity-60 transition-opacity duration-500 group-hover:animate-rotate-gradient group-hover:opacity-100" : "animate-rotate-gradient"]}
+    class:list={[
+      "absolute inset-0 rounded-sm bg-radial-gradient z-0",
+      blur &&
+        "blur-sm opacity-60 transition-opacity duration-500 group-hover:animate-rotate-gradient group-hover:opacity-100",
+      "animate-rotate-gradient",
+    ]}
   >
   </div>
+  <div class="relative z-10 rounded-[inherit] w-full">
+    <slot />
+  </div>
 </div>
- 
+  

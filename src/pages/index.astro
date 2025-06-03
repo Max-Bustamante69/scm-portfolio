@@ -1,11 +1,37 @@
 ---
-
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Button from "@/components/Button.astro";
+import GradientText from "@/components/GradientText.astro";
+import ExperienceSelector from "@/components/ExperienceSelector.astro";
+import GradientBorder from "@/components/GradientBorder.astro";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
+  <section class="flex flex-col w-full lg:w-2/3 xl:w-1/2 items-start gap-12">
 
+      <h1>
+        Hey, I'm Sebastian <br /> Web <GradientText> Developer </GradientText>
+      </h1>
+      <p class="text-text leading-8">
+        Senior Frontend Engineer (10+ yrs), specializing in high-performance UIs
+        with React and modern JS frameworks. Delivering scalable digital
+        experiences for enterprise clients.
+      </p>
+ 
+    <div class="flex gap-4 w-full xl:w-1/2" >
+        <Button class="w-1/2"> Contact </Button>
+        <GradientBorder class="w-1/2">
+            <Button class="w-full" variant="gradient"> Download CV </Button>
+        </GradientBorder>
+    </div>
+  </section>
+  <section class="flex flex-col w-full items-start gap-12">
+    <h2>
+        Experience
+    </h2>
+    <ExperienceSelector />
+  </section>
 </Layout>

@@ -9,6 +9,7 @@ const experiences = defineCollection({
     skills: z.array(z.string()),
     description: z.string(),
     icon: z.string().optional(),
+    percentage: z.number().optional(),
   }),
 });
 

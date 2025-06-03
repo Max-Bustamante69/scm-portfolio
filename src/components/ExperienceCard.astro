@@ -24,12 +24,12 @@ const {
 <div class:list={["experience-card h-full", className]} {...rest}>
   <GradientBorder blur>
     <div
-      class={`size-full border border-accent/30 bg-secondary flex flex-col align-center px-12 py-8 gap-10 shadow-lg`}
+      class={`size-full border border-accent/30 bg-card-background flex flex-col align-center px-12 py-8 gap-10 shadow-lg`}
     >
       <div class="mb-2 flex items-center gap-6">
-        <div class="size-20 rounded-full bg-accent/10"></div>
+        <div class=" size-10 rounded-full bg-accent/10"></div>
         <div>
-          <h4 class="font-bold">{jobTitle}</h4>
+          <h4 class="font-bold :text-xl">{jobTitle}</h4>
           <p class="text-subtext">
             {companyName} • {startDate} - {endDate}
           </p>

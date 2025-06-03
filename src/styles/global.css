@@ -10,9 +10,13 @@
   --color-text: oklch(1 0 0 / 70%);
   --color-secondary: oklch(0.2309 0.0227 265.62);
   --color-background: black;
+  --color-card-background: #0f131d;
   --color-subtext: oklch(1 0 0 / 50%);
   --color-gradient-start: #49bce2;
   --color-gradient-end: #2621b4;
+
+
+
   --font-Archivo: "Archivo Black", sans-serif;
   --font-Nunito: "Nunito Sans", sans-serif;
 
@@ -43,27 +47,29 @@
 }
 
 @layer base {
-    *{
-        color: var(--color-primary);
-    }
-  h1 {
-    font-size: 84px;
+  *{
+      color: var(--color-primary);
+      line-height: 1.2; /* Consider adjusting line-height for better readability with smaller font sizes */
   }
-  h2 {
-    font-size: 72px;
-  }
-  h3 {
-    font-size: 64px;
-  }
-  h4 {
-    font-size: 32px;
-  }
-  h5 {
-    font-size: 20px;
-  }
-  p {
-    font-size: 24px;
-  }
+h1 {
+  font-size: 68px; /* Was 84px */
+}
+h2 {
+  font-size: 56px; /* Was 72px */
+}
+h3 {
+  font-size: 48px; /* Was 64px */
+}
+h4 {
+  font-size: 28px; /* Was 32px */
+}
+h5 {
+  font-size: 20px; /* Kept as is, as it's already a good size for a smaller heading */
+}
+p {
+  font-size: 18px; /* Was 24px, a more standard body text size */
+}
+
 
   button, p{
     font-family: "Nunito Sans", sans-serif;

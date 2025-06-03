@@ -1,20 +1,18 @@
 ---
 import ExperienceCard from "./ExperienceCard.astro";
 import ExperienceSummary from "./ExperienceSummary.astro";
-import type { CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 type Experience = CollectionEntry<"experiences">;
 
-const { experiences } = Astro.props as {
-  experiences: Experience[];
-};
+const experiences: Experience[] = await getCollection("experiences");
 
 const selectedClass = "bg-secondary/40";
 const selectedIndex = 0;
 ---
 
-<div class="flex w-full justify-center gap-24" id="experience-selector">
-  <div class="flex flex-col gap-2 w-1/4" id="experience-summaries">
+<div class="flex w-full gap-12 lg:justify-between flex-col lg:flex-row" id="experience-selector">
+  <div class="flex lg:w-2/3 lg:max-w-[400px] flex-col gap-2" id="experience-summaries">
     {
       experiences.map((experience, index) => {
         const { jobTitle, companyName, icon } = experience.data;
@@ -34,7 +32,7 @@ const selectedIndex = 0;
     }
   </div>
 
-  <div class="w-1/2 relative" id="experience-cards">
+  <div class="relative lg:w-1/2" id="experience-cards">
     {
       experiences.map((experience, index) => {
         const {
