@@ -47,31 +47,34 @@
 }
 
 @layer base {
-  *{
-      color: var(--color-primary);
-      line-height: 1.2; /* Consider adjusting line-height for better readability with smaller font sizes */
+  * {
+    color: var(--color-primary);
+    line-height: 1.2;
   }
-h1 {
-  font-size: 68px; /* Was 84px */
-}
-h2 {
-  font-size: 56px; /* Was 72px */
-}
-h3 {
-  font-size: 48px; /* Was 64px */
-}
-h4 {
-  font-size: 28px; /* Was 32px */
-}
-h5 {
-  font-size: 20px; /* Kept as is, as it's already a good size for a smaller heading */
-}
-p {
-  font-size: 18px; /* Was 24px, a more standard body text size */
-}
+  body {
+    background-image: url("/background.png");
+    background-size: cover;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 6vw + 1rem, 4.25rem); /* ~40px–68px */
+  }
+  h2 {
+    font-size: clamp(2rem, 4vw + 1rem, 3.5rem);    /* ~32px–56px */
+  }
+  h3 {
+    font-size: clamp(1.5rem, 3vw + 1rem, 3rem);    /* ~24px–48px */
+  }
+  h4 {
+    font-size: clamp(1.25rem, 2vw + 0.5rem, 1.75rem); /* ~20px–28px */
+  }
+  h5 {
+    font-size: clamp(1rem, 1vw + 0.5rem, 1.25rem); /* ~16px–20px */
+  }
+  p {
+    font-size: clamp(1rem, 0.8vw + 0.5rem, 1.125rem); /* ~16px–18px */
+  }
 
-
-  button, p{
+  button, p {
     font-family: "Nunito Sans", sans-serif;
   }
 }

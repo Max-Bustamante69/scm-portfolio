@@ -10,28 +10,55 @@ import GradientBorder from "@/components/GradientBorder.astro";
 ---
 
 <Layout>
-  <section class="flex flex-col w-full lg:w-2/3 xl:w-1/2 items-start gap-12">
-
+  <main class="space-y-52">
+    <header
+      class="flex flex-col w-full lg:w-2/3 xl:w-1/2 items-start gap-12"
+      aria-label="Introduction"
+    >
       <h1>
-        Hey, I'm Sebastian <br /> Web <GradientText> Developer </GradientText>
+        Hey, I'm Sebastian <br />
+        Web <GradientText>Developer</GradientText>
       </h1>
       <p class="text-text leading-8">
         Senior Frontend Engineer (10+ yrs), specializing in high-performance UIs
         with React and modern JS frameworks. Delivering scalable digital
         experiences for enterprise clients.
       </p>
- 
-    <div class="flex gap-4 w-full xl:w-1/2" >
-        <Button class="w-1/2"> Contact </Button>
+      <nav aria-label="Primary actions" class="flex gap-4 w-full xl:w-1/2">
+        <a class="w-1/2" href="mailto:scorream.dev@gmail.com">
+          <Button class="contactButton" aria-label="Contact Sebastian by email"
+            >Contact</Button
+          >
+        </a>
         <GradientBorder class="w-1/2">
-            <Button class="w-full" variant="gradient"> Download CV </Button>
+          <Button
+            id="cvButton"
+            variant="gradient"
+            aria-label="Download Sebastian's CV"
+          >
+            Download CV
+          </Button>
         </GradientBorder>
-    </div>
-  </section>
-  <section class="flex flex-col w-full items-start gap-12">
-    <h2>
-        Experience
-    </h2>
-    <ExperienceSelector />
-  </section>
+      </nav>
+    </header>
+
+    <section
+      class="flex flex-col w-full items-start gap-12"
+      aria-labelledby="experience-heading"
+    >
+      <h2 id="experience-heading">Experience</h2>
+      <ExperienceSelector />
+    </section>
+  </main>
 </Layout>
+
+<script>
+  document.getElementById("cvButton")?.addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.href = "/cv/Sebastian-Correa-CV.pdf";
+    link.download = "Sebastian-Correa-CV.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+</script>

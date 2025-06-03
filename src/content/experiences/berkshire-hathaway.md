@@ -1,5 +1,5 @@
 ---
-icon: "brush.svg"
+icon: "react"
 jobTitle: "Frontend Developer"
 companyName: "Berkshire Hathaway Homeservices"
 startDate: "2018"

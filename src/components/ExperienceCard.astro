@@ -1,6 +1,7 @@
 ---
 import SkillTag from "./SkillTag.astro";
 import GradientBorder from "./GradientBorder.astro";
+import { Icon } from "astro-icon/components";
 import type { CollectionEntry } from "astro:content";
 
 type Experience = CollectionEntry<"experiences">;
@@ -16,34 +17,51 @@ const {
   endDate,
   skills,
   description,
+  icon,
   class: className = "",
   ...rest
 } = Astro.props as ExperienceCardProps;
 ---
 
-<div class:list={["experience-card h-full", className]} {...rest}>
+<article class:list={["experience-card h-full", className]} {...rest}>
   <GradientBorder blur>
     <div
-      class={`size-full border border-accent/30 bg-card-background flex flex-col align-center px-12 py-8 gap-10 shadow-lg`}
+      class="size-full border border-accent/30 bg-card-background flex flex-col align-center px-8 py-6 gap-10 shadow-lg"
     >
-      <div class="mb-2 flex items-center gap-6">
-        <div class=" size-10 rounded-full bg-accent/10"></div>
+      <header class="flex items-center gap-4">
+        <div
+          class="hidden md:block size-14 md:flex md:items-center md:justify-center rounded-full bg-accent/10"
+        >
+          {
+            icon ? (
+              <Icon size={28} name={icon} />
+            ) : (
+              <div class="size-full bg-accent/10 rounded-full" />
+            )
+          }
+        </div>
         <div>
-          <h4 class="font-bold :text-xl">{jobTitle}</h4>
+          <h4 class="font-bold text-wrap">{jobTitle}</h4>
           <p class="text-subtext">
             {companyName} • {startDate} - {endDate}
           </p>
         </div>
-      </div>
+      </header>
       <p class="mb-4 text-text whitespace-pre-line">
         {description?.replaceAll("\n", "\n\n")}
       </p>
-      <div class="flex flex-col gap-2 align-start">
+      <section class="flex flex-col gap-2 align-start">
         <p class="mb-2 font-semibold text-white">Skills & Technologies</p>
-        <div class="flex flex-wrap gap-2">
-          {skills?.map((skill) => <SkillTag>{skill}</SkillTag>)}
-        </div>
-      </div>
+        <ul class="flex flex-wrap gap-2">
+          {
+            skills?.map((skill) => (
+              <li>
+                <SkillTag>{skill}</SkillTag>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
     </div>
   </GradientBorder>
-</div>
+</article>

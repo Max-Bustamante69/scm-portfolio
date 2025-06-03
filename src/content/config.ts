@@ -17,7 +17,6 @@ const skills = defineCollection({
   schema: z.object({
     skillName: z.string(),
     description: z.string(),
-    icon: z.string(),
     proficiency: z.number(),
   }),
 });

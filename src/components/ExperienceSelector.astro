@@ -11,26 +11,41 @@ const selectedClass = "bg-secondary/40";
 const selectedIndex = 0;
 ---
 
-<div class="flex w-full gap-12 lg:justify-between flex-col lg:flex-row" id="experience-selector">
-  <div class="flex lg:w-2/3 lg:max-w-[400px] flex-col gap-2" id="experience-summaries">
+<section
+  id="experience-selector"
+  aria-label="Professional Experience"
+  class="flex w-full gap-12 lg:justify-between flex-col lg:flex-row"
+>
+  <ul
+    class="flex lg:w-2/3 lg:max-w-[400px] flex-col gap-2"
+    id="experience-summaries"
+    role="tablist"
+    aria-orientation="vertical"
+  >
     {
       experiences.map((experience, index) => {
         const { jobTitle, companyName, icon } = experience.data;
         return (
-          <ExperienceSummary
-            as="button"
-            type="button"
-            data-experience-index={index}
-            aria-selected={index === selectedIndex}
-            class={index === selectedIndex && selectedClass}
-            jobTitle={jobTitle}
-            companyName={companyName}
-            icon={icon}
-          />
+          <li>
+            <ExperienceSummary
+              as="button"
+              type="button"
+              data-experience-index={index}
+              aria-selected={index === selectedIndex}
+              aria-controls={`experience-panel-${index}`}
+              id={`experience-tab-${index}`}
+              class={index === selectedIndex && selectedClass}
+              jobTitle={jobTitle}
+              companyName={companyName}
+              icon={icon}
+              role="tab"
+              tabindex={index === selectedIndex ? 0 : -1}
+            />
+          </li>
         );
       })
     }
-  </div>
+  </ul>
 
   <div class="relative lg:w-1/2" id="experience-cards">
     {
@@ -42,6 +57,7 @@ const selectedIndex = 0;
           endDate,
           skills,
           description,
+          icon,
         } = experience.data;
         return (
           <ExperienceCard
@@ -53,12 +69,17 @@ const selectedIndex = 0;
             endDate={endDate}
             skills={skills}
             description={description}
+            icon={icon}
+            id={`experience-panel-${index}`}
+            aria-labelledby={`experience-tab-${index}`}
+            role="tabpanel"
+            tabindex="0"
           />
         );
       })
     }
   </div>
-</div>
+</section>
 
 <script>
   const selectedClass = "bg-secondary/40";
