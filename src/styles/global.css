@@ -17,10 +17,18 @@
   --font-Nunito: "Nunito Sans", sans-serif;
 
   --animate-gradient: gradient 8s linear infinite;
-  --animate-rotate: rotate 5s ease-in-out infinite;
+  --animate-rotate-gradient: rotate-gradient 2s ease-in-out infinite;
 
   
-
+  @keyframes rotate-gradient {
+    to {
+      --angle: 0deg;
+    }
+    from {
+      --angle: 360deg;
+    }
+  }
+  
  
   @keyframes gradient {
     0% {
@@ -76,7 +84,7 @@
     var(--color-gradient-start) 360deg
   );
   
-  animation: 3s linear infinite rotate-gradient;
+
 
 }
 
@@ -94,11 +102,4 @@
 }
 
 
-@keyframes rotate-gradient {
-  to {
-    --angle: 0deg;
-  }
-  from {
-    --angle: 360deg;
-  }
-}
+

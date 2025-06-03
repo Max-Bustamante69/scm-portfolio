@@ -7,6 +7,7 @@ import GradientBorder from "@/components/GradientBorder.astro";
 import SkillTag from "@/components/SkillTag.astro";
 import ExperienceCard from "@/components/ExperienceCard.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
+import ExperienceSelector from "@/components/ExperienceSelector.astro";
 
 type Experience = CollectionEntry<"experiences">;
 
@@ -69,6 +70,11 @@ const experiences: Experience[] = await getCollection("experiences");
           />
         ))
       }
+    </div>
+
+    <div class="w-full flex flex-col items-center space-y-4">
+      <ExperienceSelector experiences={experiences} />
+
     </div>
   </div>
 </Layout>

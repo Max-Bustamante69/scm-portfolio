@@ -1,13 +1,13 @@
 ---
-const { animated } = Astro.props;
+const { blur } = Astro.props;
 ---
 
 <div
-  class="relative  rounded-sm  bg-transparent "
+  class="relative size-full rounded-sm  bg-transparent p-0.5 group"
 >
   <slot />
   <div
-    class=`absolute  -z-10 inset-0  rounded-sm bg-radial-gradient blur-sm`
+    class:list={["absolute  -z-10 inset-0  rounded-sm bg-radial-gradient ", blur ? "blur-sm opacity-60 transition-opacity duration-500 group-hover:animate-rotate-gradient group-hover:opacity-100" : "animate-rotate-gradient"]}
   >
   </div>
 </div>

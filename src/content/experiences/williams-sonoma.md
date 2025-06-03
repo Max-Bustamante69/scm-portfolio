@@ -1,4 +1,5 @@
 ---
+icon: "brush.svg"
 jobTitle: "Frontend Developer"
 companyName: "Williams & Sonoma"
 startDate: "2017"

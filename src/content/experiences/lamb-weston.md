@@ -1,4 +1,5 @@
 ---
+icon: "brush.svg"
 jobTitle: "Full-Stack AEM Developer"
 companyName: "Lamb-Weston"
 startDate: "2019"

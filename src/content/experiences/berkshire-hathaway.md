@@ -1,4 +1,5 @@
 ---
+icon: "brush.svg"
 jobTitle: "Frontend Developer"
 companyName: "Berkshire Hathaway Homeservices"
 startDate: "2018"
