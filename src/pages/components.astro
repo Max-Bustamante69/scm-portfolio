@@ -8,73 +8,93 @@ import SkillTag from "@/components/SkillTag.astro";
 import ExperienceCard from "@/components/ExperienceCard.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import ExperienceSelector from "@/components/ExperienceSelector.astro";
-import SkillCard from "@/components/SkillCard.astro";
+import SkillCard from "@/components/SkillCard";
+
+
 type Experience = CollectionEntry<"experiences">;
 
 const experiences: Experience[] = await getCollection("experiences");
+
+
+const categoriesForNavigation = [
+  "FrontEnd",
+  "Backend",
+  "Database",
+  "Tool & services",
+];
+
+// 2. La categoría activa inicial (por ejemplo, "FrontEnd" por defecto)
+// En un caso real, esto podría venir de un estado o de la URL.
+const initialActiveCategory = "FrontEnd";
+// --- Fin de las props ---
 ---
 
 <Layout>
+  <header>
+    <div class="flex flex-col items-center justify-center gap-12">
+      <!-- Implementación de tu componente Navegation -->
   
-  <div class="flex flex-col items-center justify-center  gap-12">
-    <div><SkillCard/></div>
-    
-    <div class="flex flex-col items-center space-y-4">
-      <h1>
-        Hey, I'm Sebastian
-        <GradientText> Web Developer </GradientText>
-      </h1>
-      <h2>
-        Hey, I'm Sebastian
-        <GradientText> Web Developer </GradientText>
-      </h2>
-      <h3>
-        Hey, I'm Sebastian
-        <GradientText> Web Developer </GradientText>
-      </h3>
-    </div>
 
-    <div class="flex flex-col items-center space-y-4">
-      <Button> Click Me </Button>
-      <GradientBorder animated={true}>
-        <Button variant={"gradient"}> Gradient Button </Button>
-      </GradientBorder>
-      <Button variant={"contact"} size={"lg"}> Contact Me </Button>
-    </div>
+      <!-- Fin de la implementación de Navegation -->
 
-    <div class="flex flex-col items-start space-y-4">
-      {
-        experiences.map((exp) => (
-          <ExperienceSummary
-            jobTitle={exp.data.jobTitle}
-            companyName={exp.data.companyName}
-          />
-        ))
-      }
-    </div>
 
-    <div class="flex flex-wrap gap-4 items-start space-y-4">
-      <SkillTag>JavaScript</SkillTag>
-      <SkillTag>TypeScript</SkillTag>
-      <SkillTag>React</SkillTag>
-      <SkillTag>Astro</SkillTag>
-    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {
-        experiences.map((exp) => (
-          <ExperienceCard
-            jobTitle={exp.data.jobTitle}
-            companyName={exp.data.companyName}
-            startDate={exp.data.startDate}
-            endDate={exp.data.endDate}
-            skills={exp.data.skills}
-            description={exp.data.description}
-          />
-        ))
-      }
-    </div>
-    
+      <div class="flex flex-col items-center space-y-4">
+        <h1>
+          Hey, I'm Sebastian
+          <GradientText> Web Developer </GradientText>
+        </h1>
+        <h2>
+          Hey, I'm Sebastian
+          <GradientText> Web Developer </GradientText>
+        </h2>
+        <h3>
+          Hey, I'm Sebastian
+          <GradientText> Web Developer </GradientText>
+        </h3>
+      </div>
+
+      <div class="flex flex-col items-center space-y-4">
+        <Button> Click Me </Button>
+        <GradientBorder animated={true}>
+          <Button variant={"gradient"}> Gradient Button </Button>
+        </GradientBorder>
+        <Button variant={"contact"} size={"lg"}> Contact Me </Button>
+      </div>
+
+      <div class="flex flex-col items-start space-y-4">
+        {
+          experiences.map((exp) => (
+            <ExperienceSummary
+              jobTitle={exp.data.jobTitle}
+              companyName={exp.data.companyName}
+            />
+          ))
+        }
+      </div>
+
+      <div class="flex flex-wrap gap-4 items-start space-y-4">
+        <SkillTag>JavaScript</SkillTag>
+        <SkillTag>TypeScript</SkillTag>
+        <SkillTag>React</SkillTag>
+        <SkillTag>Astro</SkillTag>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+          experiences.map((exp) => (
+            <ExperienceCard
+              jobTitle={exp.data.jobTitle}
+              companyName={exp.data.companyName}
+              startDate={exp.data.startDate}
+              endDate={exp.data.endDate}
+              skills={exp.data.skills}
+              description={exp.data.description}
+            />
+          ))
+        }
+      </div>
+
       <div
         class=" flex flex-col align-start p-4 bg-secondary border border-accent rounded-2xl"
       >
@@ -82,10 +102,10 @@ const experiences: Experience[] = await getCollection("experiences");
           <Button variant={"gradient"}>Select Experience</Button>
         </GradientBorder>
       </div>
-   
 
-    <div class="w-full flex flex-col items-center space-y-4">
-      <ExperienceSelector experiences={experiences} />
+      <div class="w-full flex flex-col items-center space-y-4">
+        <ExperienceSelector experiences={experiences} />
+      </div>
     </div>
-  </div>
+  </header>
 </Layout>

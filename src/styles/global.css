@@ -46,6 +46,22 @@
 
 }
 
+
+@keyframes gradient-rotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+.animated-gradient-border {
+  background: linear-gradient(90deg, var(--color-gradient-end), var(--color-gradient-start), var(--color-gradient-start), var(--color-gradient-end));
+  background-size: 200% 200%;
+  animation: gradient-rotate 6s linear infinite;
+}
+
+
 @layer base {
   * {
     color: var(--color-primary);
