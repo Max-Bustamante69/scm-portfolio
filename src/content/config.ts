@@ -18,6 +18,7 @@ const skills = defineCollection({
     skillName: z.string(),
     description: z.string(),
     proficiency: z.number(),
+    categories: z.array(z.string()),
   }),
 });
 

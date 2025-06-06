@@ -2,10 +2,10 @@
 const { blur, class:className } = Astro.props;
 ---
 
-<div class=`relative  rounded-sm p-0.5 group ${className || ""}`}>
+<div class=`relative  p-0.5 group ${className || ""}`}>
   <div
     class:list={[
-      "absolute inset-0 rounded-sm bg-radial-gradient z-0",
+      "absolute inset-0  rounded-[inherit] bg-radial-gradient z-0",
       blur &&
         "blur-sm opacity-60 transition-opacity duration-500 group-hover:animate-rotate-gradient group-hover:opacity-100",
       "animate-rotate-gradient",

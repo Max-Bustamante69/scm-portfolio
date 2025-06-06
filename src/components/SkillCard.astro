@@ -1,0 +1,84 @@
+---
+import { Icon } from "astro-icon/components";
+import GradientBorder from "./GradientBorder.astro";
+
+type SkillCardProps = {
+  name: string;
+  description: string;
+  proficiency: number;
+  categories: string[];
+  class?: string;
+};
+
+const {
+  name,
+  description,
+  proficiency,
+  categories,
+  class: className = "",
+  ...rest
+} = Astro.props as SkillCardProps;
+
+// Generate icon name from skill name (fallback to 'react' if specific icon doesn't exist)
+const iconName = name
+  .toLowerCase()
+  .replace(/\s+/g, "-")
+  .replace(/[^a-z0-9-]/g, "");
+---
+
+<article
+  class:list={[
+    "skill-card w-full group max-w-sm p-6 rounded-2xl bg-card-background/60 border border-accent/30 flex flex-col gap-4 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-accent/60",
+    className,
+  ]}
+  data-categories={categories.join(",")}
+  role="article"
+  aria-labelledby={`skill-${iconName}-title`}
+  {...rest}
+>
+  <GradientBorder class="w-fit rounded-xl">
+    <div
+      class="w-16 h-16 bg-card-background rounded-xl flex items-center justify-center border border-accent/20"
+    >
+      <Icon
+        name={iconName || "react"}
+        size={32}
+        class="text-accent transition-transform duration-300 group-hover:scale-110"
+        aria-hidden="true"
+      />
+    </div>
+  </GradientBorder>
+
+  <div class="space-y-2">
+    <h3
+      id={`skill-${iconName}-title`}
+      class="text-accent font-semibold text-lg"
+    >
+      {name}
+    </h3>
+    <p class="text-subtext text-sm leading-relaxed">{description}</p>
+  </div>
+
+  <div class="mt-auto space-y-3">
+    <div class="flex justify-between items-center">
+      <span class="text-sm text-primary font-medium">Proficiency</span>
+      <span class="text-primary text-sm font-bold group-hover:text-accent transition-colors duration-700">{proficiency}%</span>
+    </div>
+    <div
+      class="w-full h-3 rounded-full bg-foreground/20 overflow-hidden"
+      role="img"
+      aria-label={`${name} proficiency: ${proficiency} percent`}
+    >
+      <div
+        class="h-full transition-all duration-700 ease-out rounded-full bg-gradient-to-r from-gradient-start via-gradient-end to-gradient-start bg-[length:400%_100%] group-hover:animate-skill-gradient"
+        style={`width: ${proficiency}%`}
+        role="progressbar"
+        aria-valuenow={proficiency}
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-label={`${name} proficiency level`}
+      >
+      </div>
+    </div>
+  </div>
+</article>

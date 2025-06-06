@@ -4,8 +4,7 @@ import Button from "@/components/Button.astro";
 import GradientText from "@/components/GradientText.astro";
 import ExperienceSelector from "@/components/ExperienceSelector.astro";
 import GradientBorder from "@/components/GradientBorder.astro";
-import SkillTabs from "@/components/SkillTabs"
-
+import SkillTabs from "@/components/SkillTabs.astro";
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
@@ -53,12 +52,12 @@ import SkillTabs from "@/components/SkillTabs"
 
     <section class="flex flex-col items-center w-full mt-20 gap-4">
       <h2 class="text-5xl sm:text-6xl font-extrabold mb-8 text-white text-center">
-        Skills <span class="text-accent">&</span>
-        <span class="bg-gradient-to-r from-accent to-gradient-start text-transparent bg-clip-text">
-          Technologies
-        </span>
+        Skills 
+       <GradientText>
+          & Technologies
+       </GradientText>
       </h2>
-      <SkillTabs client:load />
+      <SkillTabs />
     </section>
   </main>
   
