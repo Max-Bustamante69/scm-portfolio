@@ -1,0 +1,113 @@
+---
+import ExperienceCard from "./ExperienceCard.astro";
+import ExperienceSummary from "./ExperienceSummary.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+type Experience = CollectionEntry<"experiences">;
+
+const experiences: Experience[] = await getCollection("experiences");
+
+const selectedClass = "bg-secondary/40";
+const selectedIndex = 0;
+---
+
+<section
+  id="experience-selector"
+  aria-label="Professional Experience"
+  class="flex w-full gap-12 lg:justify-between flex-col lg:flex-row"
+>
+  <ul
+    class="flex lg:w-2/3 lg:max-w-[400px] flex-col gap-2"
+    id="experience-summaries"
+    role="tablist"
+    aria-orientation="vertical"
+  >
+    {
+      experiences.map((experience, index) => {
+        const { jobTitle, companyName, icon } = experience.data;
+        return (
+          <li>
+            <ExperienceSummary
+              as="button"
+              type="button"
+              data-experience-index={index}
+              aria-selected={index === selectedIndex}
+              aria-controls={`experience-panel-${index}`}
+              id={`experience-tab-${index}`}
+              class={index === selectedIndex && selectedClass}
+              jobTitle={jobTitle}
+              companyName={companyName}
+              icon={icon}
+              role="tab"
+              tabindex={index === selectedIndex ? 0 : -1}
+            />
+          </li>
+        );
+      })
+    }
+  </ul>
+
+  <div class="relative lg:w-1/2" id="experience-cards">
+    {
+      experiences.map((experience, index) => {
+        const {
+          jobTitle,
+          companyName,
+          startDate,
+          endDate,
+          skills,
+          description,
+          icon,
+        } = experience.data;
+        return (
+          <ExperienceCard
+            data-experience-card={index}
+            class={index === selectedIndex ? "block" : "hidden"}
+            jobTitle={jobTitle}
+            companyName={companyName}
+            startDate={startDate}
+            endDate={endDate}
+            skills={skills}
+            description={description}
+            icon={icon}
+            id={`experience-panel-${index}`}
+            aria-labelledby={`experience-tab-${index}`}
+            role="tabpanel"
+            tabindex="0"
+          />
+        );
+      })
+    }
+  </div>
+</section>
+
+<script>
+  const selectedClass = "bg-secondary/40";
+  const summaries = document.querySelectorAll(
+    "#experience-summaries [data-experience-index]"
+  );
+  const cards = document.querySelectorAll(
+    "#experience-cards [data-experience-card]"
+  );
+  let current: number = 0;
+
+  function select(index: number) {
+    if (index === current) return;
+
+    summaries[current].classList.remove(selectedClass);
+    summaries[current].setAttribute("aria-selected", "false");
+    cards[current].classList.remove("block");
+    cards[current].classList.add("hidden");
+
+    summaries[index].classList.add(selectedClass);
+    summaries[index].setAttribute("aria-selected", "true");
+    cards[index].classList.add("block");
+    cards[index].classList.remove("hidden");
+
+    current = index;
+  }
+
+  summaries.forEach((btn, index) => {
+    btn.addEventListener("click", () => select(index));
+  });
+</script>

@@ -1,0 +1,119 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import SkillCard from "./SkillCard.astro";
+
+type Experience = CollectionEntry<"skills">;
+const skillsCollection: Experience[] = await getCollection("skills");
+const skills = skillsCollection.map((skill) => skill.data);
+
+// Always start with Frontend and Backend
+const baseTabs = ["Frontend", "Backend"];
+const categorySet = new Set<string>();
+skills.forEach(({ categories }) =>
+  categories.forEach((cat) => {
+    if (!baseTabs.includes(cat)) categorySet.add(cat);
+  })
+);
+const tabs = [...baseTabs, ...Array.from(categorySet)];
+const selected = tabs[0];
+---
+
+<div class="flex flex-col items-center">
+  <div
+    role="tablist"
+    aria-label="Skill categories"
+    class="flex bg-card-background/60 rounded-full px-4 py-2 space-x-6 text-xl shadow-lg mb-10"
+    id="skill-tabs"
+  >
+    {
+      tabs.map((tab) => (
+        <button
+          id={`tab-${tab.toLowerCase()}`}
+          role="tab"
+          aria-selected={selected === tab}
+          tabindex={selected === tab ? 0 : -1}
+          class={`px-4 py-2 rounded-full transition duration-200 ${
+            selected === tab ? "text-accent" : "text-subtext hover:text-white"
+          }`}
+          data-category={tab}
+        >
+          {tab}
+        </button>
+      ))
+    }
+  </div>
+
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl px-2 w-full"
+    id="skill-cards"
+  >
+    {
+      skills.map(({ skillName, description, proficiency, categories }) => (
+        <SkillCard
+          name={skillName}
+          description={description}
+          proficiency={proficiency}
+          categories={categories}
+          data-categories={categories.join(",")}
+          class={`skill-card ${
+            categories.includes(selected) ? "block" : "hidden"
+          }`}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<script type="module" defer>
+  const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+  const cards = Array.from(document.querySelectorAll(".skill-card"));
+
+  function filterCards(category) {
+    cards.forEach((card) => {
+      const cardCategories = card.dataset.categories.split(",");
+      if (cardCategories.includes(category)) {
+        card.classList.remove("hidden");
+        card.classList.add("block");
+      } else {
+        card.classList.remove("block");
+        card.classList.add("hidden");
+      }
+    });
+  }
+
+  function selectTab(tab) {
+    tabs.forEach((t) => {
+      t.setAttribute("aria-selected", "false");
+      t.tabIndex = -1;
+      t.classList.remove("text-accent");
+      t.classList.add("text-subtext");
+    });
+    tab.setAttribute("aria-selected", "true");
+    tab.tabIndex = 0;
+    tab.classList.add("text-accent");
+    tab.classList.remove("text-subtext");
+    filterCards(tab.dataset.category);
+    tab.focus();
+  }
+
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => selectTab(tab));
+    tab.addEventListener("keydown", (e) => {
+      let idx = tabs.indexOf(tab);
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        selectTab(tabs[(idx + 1) % tabs.length]);
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        selectTab(tabs[(idx - 1 + tabs.length) % tabs.length]);
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        selectTab(tabs[0]);
+      } else if (e.key === "End") {
+        e.preventDefault();
+        selectTab(tabs[tabs.length - 1]);
+      }
+    });
+  });
+</script>

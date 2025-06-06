@@ -1,0 +1,33 @@
+---
+import { Icon } from "astro-icon/components";
+const {
+  jobTitle,
+  companyName,
+  class: className = "",
+  icon,
+  ...rest
+} = Astro.props;
+---
+
+<button
+  class={`flex gap-4 w-full items-center justify-start text-center rounded-lg p-4 hover:bg-secondary/40 transition-all cursor-pointer duration-200  ${className}`}
+  {...rest}
+>
+  <span
+    class="size-12 rounded-full bg-secondary flex items-center justify-center"
+  >
+    {
+      icon ? (
+        <Icon size={24} name={icon} />
+      ) : (
+        <span class="size-full bg-accent/10 rounded-full" />
+      )
+    }
+  </span>
+  <span class="flex flex-col items-start">
+    <span class="text-xl text-left font-Nunito font-bold text-primary">
+      {jobTitle}
+    </span>
+    <span class="text-lg text-left text-gray-600">{companyName}</span>
+  </span>
+</button>

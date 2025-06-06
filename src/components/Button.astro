@@ -1,0 +1,48 @@
+---
+// src/components/Button.astro
+// Import cva (ensure class-variance-authority is installed)
+import { cva } from "class-variance-authority";
+
+// Import your cn utility function (adjust path as necessary)
+import { cn } from "../lib/utils"; // Example: adjust this path to your actual utils.ts
+
+// Define the buttonVariants directly within the Astro component
+const buttonVariants = cva(
+  "inline-flex w-full items-center justify-center relative gap-2 font-Nunito font-semibold whitespace-nowrap rounded-sm transition-all cursor-pointer disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  {
+    variants: {
+      variant: {
+        default: "bg-secondary text-primary shadow-xs hover:bg-secondary/90",
+        gradient:
+          "bg-card-background text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 hover:bg-",
+        contact:
+          "bg-background text-primary border border-accent hover:bg-secondary/90 rounded-full focus-visible:ring-secondary/20 dark:focus-visible:ring-secondary/40 dark:bg-secondary/60",
+      },
+      size: {
+        default: "h-9 px-4 py-3 has-[>svg]:px-3",
+        sm: "h-8  gap-1.5 px-3 has-[>svg]:px-2.5",
+        lg: "h-10  px-8 py-6 has-[>svg]:px-4",
+        icon: "size-9",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+);
+
+interface Props extends astroHTML.JSX.ButtonHTMLAttributes {
+  variant?: 'default' | 'gradient' | 'contact';
+  size?: 'default' | 'sm' | 'lg' | 'icon';
+
+}
+
+const { variant, size, class: className, ...rest } = Astro.props;
+
+const finalClass = cn(buttonVariants({ variant, size, className }));
+---
+
+<button class={finalClass} {...rest}>
+  <slot />
+</button>
