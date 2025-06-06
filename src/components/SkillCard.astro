@@ -28,7 +28,7 @@ const iconName = name
 
 <article
   class:list={[
-    "skill-card w-full group max-w-sm p-6 rounded-2xl bg-card-background/60 border border-accent/30 flex flex-col gap-4 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-accent/60",
+    "skill-card border-2 w-full group max-w-sm p-6 rounded-2xl bg-card-background/60 border border-accent/30 flex flex-col gap-4 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-accent/60",
     className,
   ]}
   data-categories={categories.join(",")}
@@ -70,7 +70,7 @@ const iconName = name
       aria-label={`${name} proficiency: ${proficiency} percent`}
     >
       <div
-        class="h-full transition-all duration-700 ease-out rounded-full bg-gradient-to-r from-gradient-start via-gradient-end to-gradient-start bg-[length:400%_100%] group-hover:animate-skill-gradient"
+        class="h-full transition-all duration-700 ease-out rounded-full bg-gradient-to-r from-gradient-start via-gradient-end to-gradient-start bg-[length:400%_100%] opacity-50 group-hover:opacity-100 group-hover:animate-skill-gradient "
         style={`width: ${proficiency}%`}
         role="progressbar"
         aria-valuenow={proficiency}
