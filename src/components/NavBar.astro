@@ -1,3 +1,32 @@
-<div>
-    
-</div>
+---
+const navItems = ['About Me', 'Experience', 'Skills', 'Contact']
+---
+
+<nav class="flex py-12 h-full justify-center backdrop-blur items-center sticky top-0 z-20">
+    <ul class="flex justify-center gap-8 w-fit text-text" aria-label="Main navigation" role="navigation">
+        {navItems.map((item) => (
+            <li class="text-text font-Nunito text-xl hover:text-primary transition-all duration-300">
+                <a href={`#${item.toLowerCase().replace(' ', '-')}`}>{item}</a>
+            </li>
+        ))}
+    </ul>
+</nav>
+
+<script is:inline>
+    const selectedStyle = "text-accent font-bold";
+    const navLinks = document.querySelectorAll("nav ul li a");
+    let currentSelected = null;
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+            // Remove classes from the previously selected link
+            if (currentSelected) {
+                selectedStyle.split(" ").forEach(cls => currentSelected.classList.remove(cls));
+            }
+            // Add classes to the newly clicked link
+            selectedStyle.split(" ").forEach(cls => link.classList.add(cls));
+            // Update the current selected link
+            currentSelected = link;
+        });
+    });
+</script>
