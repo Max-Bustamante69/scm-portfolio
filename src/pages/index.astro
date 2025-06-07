@@ -5,27 +5,33 @@ import GradientText from "@/components/GradientText.astro";
 import ExperienceSelector from "@/components/ExperienceSelector.astro";
 import GradientBorder from "@/components/GradientBorder.astro";
 import SkillTabs from "@/components/SkillTabs.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import ResultCard from "@/components/ResultCard.astro";
+
+type Result = CollectionEntry<"results">;
+
+const results: Result[] = await getCollection("results");
+
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-
-  <main class="space-y-52 my-24 w-fit px-12 max-w-[1800px]">
+  <main class="space-y-62 my-24 w-fit px-12 max-w-[1800px]">
     <header
       class="flex flex-col w-full scroll-mt-28 lg:w-2/3 xl:w-1/2 items-start gap-12"
       id="about-me"
       aria-label="Introduction"
     >
-    <div class="flex items-center gap-12">
-      <div class="size-32 rounded-full bg-secondary">
-      </div>
+      <div class="flex items-center gap-12">
+        <div class="size-32 rounded-full bg-secondary"></div>
         <GradientBorder class="w-fit">
-          <Button class="text-lg bg-background"  size="lg">Available for Work</Button>
+          <Button class="text-lg bg-background" size="lg"
+            >Available for Work</Button
+          >
         </GradientBorder>
-    </div>
-      
-    </div>
+      </div>
+
       <h1>
         Hey, I'm Sebastian <br />
         Web <GradientText>Developer</GradientText>
@@ -54,25 +60,70 @@ import SkillTabs from "@/components/SkillTabs.astro";
     </header>
 
     <section
-      class="flex flex-col scroll-mt-28 w-full items-start gap-12 h-[70dvh]"
+      class="flex flex-col scroll-mt-28 w-full items-start gap-12"
       aria-labelledby="experience-heading"
       id="experience"
     >
-      <h2 id="experience-heading">Experience</h2>
+      <h2 class="font-extrabold mb-8" id="experience-heading">
+        Professional <GradientText>Experience</GradientText>
+      </h2>
       <ExperienceSelector />
     </section>
 
-    <section class="flex flex-col scroll-mt-28 items-center w-full mt-20 gap-4" id="skills">
-      <h2 class="text-5xl sm:text-6xl font-extrabold mb-8 text-white text-center">
-        Skills 
-       <GradientText>
-          & Technologies
-       </GradientText>
+
+    <section>
+      <GradientBorder class="rounded-lg hidden lg:block">
+        <div
+          class="flex flex-col scroll-mt-28 items-start bg-card-background w-full gap-12 p-12 rounded-lg"
+          id="testimonials"
+        >
+          <h2 class="font-extrabold mb-8 text-center">
+            Delivering <GradientText>Quality</GradientText> Results
+          </h2>
+          <div class="flex items-center gap-12">
+            {
+              results.map((result) => (
+                <ResultCard
+                  statistic={result.data.statistic}
+                  name={result.data.name}
+                  description={result.data.description}
+                />
+              ))
+            }
+          </div>
+        </div>
+      </GradientBorder>
+
+      <div class="flex flex-col  gap-12 lg:hidden">
+        <h2 class="font-extrabold mb-8 text-center">
+          Delivering <GradientText>Quality</GradientText> Results
+        </h2>
+        <div class="grid grid-cols-2 gap-4">
+          {
+            results.map((result) => (
+              <ResultCard
+                statistic={result.data.statistic}
+                name={result.data.name}
+                description={result.data.description}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+
+    <section
+      class="flex flex-col scroll-mt-28 items-center w-full mt-20 gap-4 lg:h-screen"
+      id="skills"
+    >
+      <h2 class="font-extrabold mb-8 text-white text-center">
+        Skills
+        <GradientText> & Technologies </GradientText>
       </h2>
       <SkillTabs />
     </section>
   </main>
-  
 </Layout>
 
 <script>
