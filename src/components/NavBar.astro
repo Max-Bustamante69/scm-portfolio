@@ -1,37 +1,79 @@
 ---
 import { Icon } from "astro-icon/components";
-const navItems = ['About Me', 'Experience', 'Skills', 'Contact']
+const navItems = [
+  {
+    text: "About Me",
+    href: "about-me",
+    description: "Learn about Sebastian's background and expertise",
+  },
+  {
+    text: "Experience",
+    href: "experience",
+    description: "View Sebastian's professional work experience",
+  },
+  {
+    text: "Skills",
+    href: "skills",
+    description: "Explore Sebastian's technical skills and technologies",
+  },
+  {
+    text: "Contact",
+    href: "contact",
+    description: "Get in touch with Sebastian",
+  },
+];
 ---
 
-<nav class="flex py-10 h-full justify-center backdrop-blur items-center sticky top-0 z-20">
-    <ul class="flex justify-center gap-8 w-fit text-text relative" aria-label="Main navigation" role="navigation">
-        <li>
-            <Icon name="logo-dark" size={42} class="absolute top-1/2 -left-8 -translate-y-1/2" />
-            <Icon name="logo-dark" size={42} class="absolute top-1/2 -left-8 -translate-y-1/2 transition-all duration-300 hover:blur-xl" />
+<nav
+  class="flex py-10 h-full justify-center backdrop-blur items-center sticky top-0 z-20"
+>
+  <ul
+    class="flex justify-center gap-8 w-fit text-text relative"
+    aria-label="Main navigation"
+  >
+    <li class="relative">
+      <a href="#about-me" aria-label="Go to homepage">
+        <Icon
+          name="logo-dark"
+          size={42}
+          class="absolute top-1/2 -left-8 -translate-y-1/2"
+        />
+        <Icon
+          name="logo-dark"
+          size={42}
+          class="absolute top-1/2 -left-8 -translate-y-1/2 transition-all duration-300 hover:blur-xl"
+        />
+      </a>
+    </li>
+    {
+      navItems.map((item) => (
+        <li class="text-text font-Nunito text-xl hover:text-primary transition-all duration-300">
+          <a href={`#${item.href}`} aria-label={item.description}>
+            {item.text}
+          </a>
         </li>
-        {navItems.map((item) => (
-            <li class="text-text font-Nunito text-xl hover:text-primary transition-all duration-300">
-                <a href={`#${item.toLowerCase().replace(' ', '-')}`}>{item}</a>
-            </li>
-        ))}
-    </ul>
+      ))
+    }
+  </ul>
 </nav>
 
 <script is:inline>
-    const selectedStyle = "text-accent font-bold";
-    const navLinks = document.querySelectorAll("nav ul li a");
-    let currentSelected = null;
+  const selectedStyle = "text-accent font-bold";
+  const navLinks = document.querySelectorAll("nav ul li a");
+  let currentSelected = null;
 
-    navLinks.forEach(link => {
-        link.addEventListener("click", (e) => {
-            // Remove classes from the previously selected link
-            if (currentSelected) {
-                selectedStyle.split(" ").forEach(cls => currentSelected.classList.remove(cls));
-            }
-            // Add classes to the newly clicked link
-            selectedStyle.split(" ").forEach(cls => link.classList.add(cls));
-            // Update the current selected link
-            currentSelected = link;
-        });
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      // Remove classes from the previously selected link
+      if (currentSelected) {
+        selectedStyle
+          .split(" ")
+          .forEach((cls) => currentSelected.classList.remove(cls));
+      }
+      // Add classes to the newly clicked link
+      selectedStyle.split(" ").forEach((cls) => link.classList.add(cls));
+      // Update the current selected link
+      currentSelected = link;
     });
+  });
 </script>

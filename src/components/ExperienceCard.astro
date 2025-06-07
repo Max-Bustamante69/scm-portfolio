@@ -41,20 +41,14 @@ const {
           }
         </div>
         <div class="flex flex-col gap-2">
-          <h4 class="font-bold text-wrap">{jobTitle}</h4>
+          <h3 class="font-bold text-wrap">{jobTitle}</h3>
           <p class="text-subtext">
             {companyName} • {startDate} - {endDate}
           </p>
         </div>
       </header>
       <p
-        class="mb-2 pr-4 text-text whitespace-pre-line h-72
-        [&::-webkit-scrollbar]:w-2
-        [&::-webkit-scrollbar-track]:bg-accent/5
-        [&::-webkit-scrollbar-track]:rounded-full
-        [&::-webkit-scrollbar-thumb]:bg-accent/10
-        [&::-webkit-scrollbar-thumb]:rounded-full
-        overflow-y-auto"
+        class="mb-2 pr-4 text-text whitespace-pre-line h-72 overflow-y-auto "
       >
         {description?.replaceAll("\n", "\n\n")}
       </p>

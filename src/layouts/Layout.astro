@@ -3,6 +3,11 @@ import "../styles/global.css";
 import NavBar from "@/components/NavBar.astro";
 import Footer from "@/components/Footer.astro";
 import Cursor from "@/components/Cursor.astro";
+
+const title = "Sebastian Correa | Senior Frontend Developer";
+const description =
+  "Senior Frontend Engineer with 10+ years of experience, specializing in high-performance UIs with React and modern JS frameworks. Delivering scalable digital experiences for enterprise clients.";
+const image = "/logo/logo-light.webp";
 ---
 
 <!doctype html>
@@ -10,22 +15,37 @@ import Cursor from "@/components/Cursor.astro";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+
     <!-- Favicon por defecto -->
-    <link rel="icon" href="/logo/logo-light.png" />
+    <link rel="icon" href="/logo/logo-light.webp" />
     <!-- Favicon para Light Theme -->
     <link
       rel="icon"
-      href="/logo/logo-light.png"
+      href="/logo/logo-light.webp"
       media="(prefers-color-scheme: light)"
     />
     <!-- Favicon para Dark Theme -->
     <link
       rel="icon"
-      href="/logo/logo-dark.png"
+      href="/logo/logo-dark.webp"
       media="(prefers-color-scheme: dark)"
     />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+
+    <title>{title}</title>
   </head>
   <body class="bg-black font-Archivo mx-auto w-fit">
     <Cursor />
@@ -34,4 +54,3 @@ import Cursor from "@/components/Cursor.astro";
     <Footer />
   </body>
 </html>
-

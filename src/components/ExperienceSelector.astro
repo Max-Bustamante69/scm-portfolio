@@ -6,7 +6,6 @@ import { getCollection, type CollectionEntry } from "astro:content";
 type Experience = CollectionEntry<"experiences">;
 
 const experiences: Experience[] = await getCollection("experiences");
-
 const selectedClass = "bg-secondary/40";
 const selectedIndex = 0;
 ---
@@ -16,38 +15,36 @@ const selectedIndex = 0;
   aria-label="Professional Experience"
   class="flex w-full gap-12 lg:justify-between flex-col lg:flex-row"
 >
-  <ul
-    class="flex lg:w-2/3 lg:max-w-[400px] flex-col gap-2 "
-    id="experience-summaries"
+  <div
+    class="flex lg:w-2/3 lg:max-w-[400px] flex-col gap-2"
     role="tablist"
     aria-orientation="vertical"
+    aria-label="Experience tabs"
   >
     {
       experiences.map((experience, index) => {
         const { jobTitle, companyName, icon } = experience.data;
         return (
-          <li>
+          <div role="presentation">
             <ExperienceSummary
-              as="button"
-              type="button"
-              data-experience-index={index}
+              role="tab"
+              id={`experience-tab-${index}`}
               aria-selected={index === selectedIndex}
               aria-controls={`experience-panel-${index}`}
-              id={`experience-tab-${index}`}
-              class={index === selectedIndex && selectedClass}
+              tabindex={index === selectedIndex ? 0 : -1}
+              data-experience-index={index}
+              class={index === selectedIndex ? selectedClass : ""}
               jobTitle={jobTitle}
               companyName={companyName}
               icon={icon}
-              role="tab"
-              tabindex={index === selectedIndex ? 0 : -1}
             />
-          </li>
+          </div>
         );
       })
     }
-  </ul>
+  </div>
 
-  <div class="relative lg:w-1/2" id="experience-cards">
+  <div class="relative lg:w-1/2">
     {
       experiences.map((experience, index) => {
         const {
@@ -60,21 +57,24 @@ const selectedIndex = 0;
           icon,
         } = experience.data;
         return (
-          <ExperienceCard
-            data-experience-card={index}
-            class={index === selectedIndex ? "block" : "hidden"}
-            jobTitle={jobTitle}
-            companyName={companyName}
-            startDate={startDate}
-            endDate={endDate}
-            skills={skills}
-            description={description}
-            icon={icon}
+          <div
+            role="tabpanel"
             id={`experience-panel-${index}`}
             aria-labelledby={`experience-tab-${index}`}
-            role="tabpanel"
             tabindex="0"
-          />
+            class={index === selectedIndex ? "block" : "hidden"}
+            hidden={index !== selectedIndex}
+          >
+            <ExperienceCard
+              jobTitle={jobTitle}
+              companyName={companyName}
+              startDate={startDate}
+              endDate={endDate}
+              skills={skills}
+              description={description}
+              icon={icon}
+            />
+          </div>
         );
       })
     }
@@ -83,31 +83,71 @@ const selectedIndex = 0;
 
 <script>
   const selectedClass = "bg-secondary/40";
-  const summaries = document.querySelectorAll(
-    "#experience-summaries [data-experience-index]"
-  );
-  const cards = document.querySelectorAll(
-    "#experience-cards [data-experience-card]"
-  );
-  let current: number = 0;
+  const tabs = document.querySelectorAll<HTMLElement>('[role="tab"]');
+  const panels = document.querySelectorAll<HTMLElement>('[role="tabpanel"]');
+  let currentIndex = 0;
 
-  function select(index: number) {
-    if (index === current) return;
+  function switchTab(index: number) {
+    const oldTab = tabs[currentIndex];
+    const newTab = tabs[index];
 
-    summaries[current].classList.remove(selectedClass);
-    summaries[current].setAttribute("aria-selected", "false");
-    cards[current].classList.remove("block");
-    cards[current].classList.add("hidden");
+    // Update tabs
+    oldTab.setAttribute("aria-selected", "false");
+    oldTab.classList.remove(selectedClass);
+    oldTab.tabIndex = -1;
 
-    summaries[index].classList.add(selectedClass);
-    summaries[index].setAttribute("aria-selected", "true");
-    cards[index].classList.add("block");
-    cards[index].classList.remove("hidden");
+    newTab.setAttribute("aria-selected", "true");
+    newTab.classList.add(selectedClass);
+    newTab.tabIndex = 0;
+    newTab.focus();
 
-    current = index;
+    // Update panels
+    panels[currentIndex].hidden = true;
+    panels[currentIndex].classList.add("hidden");
+    panels[currentIndex].classList.remove("block");
+
+    panels[index].hidden = false;
+    panels[index].classList.remove("hidden");
+    panels[index].classList.add("block");
+
+    currentIndex = index;
   }
 
-  summaries.forEach((btn, index) => {
-    btn.addEventListener("click", () => select(index));
+  // Handle clicks
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const index = Number(tab.getAttribute("data-experience-index"));
+      switchTab(index);
+    });
+  });
+
+  // Handle keyboard navigation
+  tabs.forEach((tab) => {
+    tab.addEventListener("keydown", (e: KeyboardEvent) => {
+      let targetIndex = currentIndex;
+
+      switch (e.key) {
+        case "ArrowUp":
+          e.preventDefault();
+          targetIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
+          break;
+        case "ArrowDown":
+          e.preventDefault();
+          targetIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
+          break;
+        case "Home":
+          e.preventDefault();
+          targetIndex = 0;
+          break;
+        case "End":
+          e.preventDefault();
+          targetIndex = tabs.length - 1;
+          break;
+        default:
+          return;
+      }
+
+      switchTab(targetIndex);
+    });
   });
 </script>
