@@ -9,103 +9,163 @@ import ExperienceCard from "@/components/ExperienceCard.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import ExperienceSelector from "@/components/ExperienceSelector.astro";
 import SkillCard from "@/components/SkillCard.astro";
-
+import Result from "@/components/ResultCard.astro";
 
 type Experience = CollectionEntry<"experiences">;
+type Result = CollectionEntry<"results">;
 
 const experiences: Experience[] = await getCollection("experiences");
+const results: Result[] = await getCollection("results");
 
 
-const categoriesForNavigation = [
-  "FrontEnd",
-  "Backend",
-  "Database",
-  "Tool & services",
-];
-
-// 2. La categoría activa inicial (por ejemplo, "FrontEnd" por defecto)
-// En un caso real, esto podría venir de un estado o de la URL.
-const initialActiveCategory = "FrontEnd";
-// --- Fin de las props ---
 ---
 
 <Layout>
-  <header>
-    <div class="flex flex-col items-center justify-center gap-12">
-      <!-- Implementación de tu componente Navegation -->
-  
+  <main class="p-8 space-y-16 max-w-7xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8">Component Showcase</h1>
 
-      <!-- Fin de la implementación de Navegation -->
+    <!-- Typography Section -->
+    <section class="space-y-8 p-8 border border-accent rounded-xl">
+      <h2 class="text-2xl font-semibold mb-4">Typography & Gradient Text</h2>
+      <p class="text-sm text-text/80 mb-4">
+        Demonstrates different heading levels with optional gradient text effect
+      </p>
 
-
-
-      <div class="flex flex-col items-center space-y-4">
-        <h1>
-          Hey, I'm Sebastian
-          <GradientText> Web Developer </GradientText>
+      <div class="space-y-4">
+        <h1 class="text-4xl">
+          Regular Heading with <GradientText>Gradient Effect</GradientText>
         </h1>
-        <h2>
-          Hey, I'm Sebastian
-          <GradientText> Web Developer </GradientText>
+        <h2 class="text-3xl">
+          Subheading with <GradientText>Gradient Text</GradientText>
         </h2>
-        <h3>
-          Hey, I'm Sebastian
-          <GradientText> Web Developer </GradientText>
+        <h3 class="text-2xl">
+          Smaller heading with <GradientText>Gradient Style</GradientText>
         </h3>
       </div>
+    </section>
 
-      <div class="flex flex-col items-center space-y-4">
-        <Button> Click Me </Button>
-        <GradientBorder animated={true}>
-          <Button variant={"gradient"}> Gradient Button </Button>
+    <!-- Button Section -->
+    <section class="space-y-8 p-8 border border-accent rounded-xl">
+      <h2 class="text-2xl font-semibold mb-4">Buttons</h2>
+      <p class="text-sm text-text/80 mb-4">
+        Various button styles and sizes with optional gradient borders
+      </p>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <Button class="w-fit ">Default Button</Button>
+        <Button class="w-fit " variant="contact">Contact Button</Button>
+        <Button class="w-fit " size="lg">Large Button</Button>
+        <GradientBorder >
+          <Button class="w-fit " variant="gradient">Gradient Button</Button>
         </GradientBorder>
-        <Button variant={"contact"} size={"lg"}> Contact Me </Button>
       </div>
+    </section>
 
-      <div class="flex flex-col items-start space-y-4">
+    <!-- Experience Components Section -->
+    <section class="space-y-8 p-8 border border-accent rounded-xl">
+      <h2 class="text-2xl font-semibold mb-4">Experience Components</h2>
+      <p class="text-sm text-text/80 mb-4">
+        Components for displaying professional experience in various formats
+      </p>
+
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-xl mb-4">Experience Summary</h3>
+          <div class="space-y-2">
+            {
+              experiences
+                .slice(0, 2)
+                .map((exp) => (
+                  <ExperienceSummary
+                    jobTitle={exp.data.jobTitle}
+                    companyName={exp.data.companyName}
+                  />
+                ))
+            }
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-xl mb-4">Experience Cards</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {
+              experiences
+                .slice(0, 2)
+                .map((exp) => (
+                  <ExperienceCard
+                    jobTitle={exp.data.jobTitle}
+                    companyName={exp.data.companyName}
+                    startDate={exp.data.startDate}
+                    endDate={exp.data.endDate}
+                    skills={exp.data.skills}
+                    description={exp.data.description}
+                  />
+                ))
+            }
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-xl mb-4">Experience Selector</h3>
+          <ExperienceSelector experiences={experiences} />
+        </div>
+      </div>
+    </section>
+
+    <!-- Skill Components Section -->
+    <section class="space-y-8 p-8 border border-accent rounded-xl">
+      <h2 class="text-2xl font-semibold mb-4">Skill Components</h2>
+      <p class="text-sm text-text/80 mb-4">
+        Components for displaying skills and technologies
+      </p>
+
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-xl mb-4">Skill Tags</h3>
+          <div class="flex flex-wrap gap-2">
+            <SkillTag>JavaScript</SkillTag>
+            <SkillTag>TypeScript</SkillTag>
+            <SkillTag>React</SkillTag>
+            <SkillTag>Astro</SkillTag>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="space-y-8 p-8 border border-accent rounded-xl">
+      <h2 class="text-2xl font-semibold mb-4">Results & Statistics</h2>
+      <p class="text-sm text-text/80 mb-4">
+        Components for displaying achievements and metrics
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 ">
         {
-          experiences.map((exp) => (
-            <ExperienceSummary
-              jobTitle={exp.data.jobTitle}
-              companyName={exp.data.companyName}
+          results.map((result) => (
+            <Result
+              statistic={result.data.statistic}
+              name={result.data.name}
+              description={result.data.description}
             />
           ))
         }
       </div>
+    </section>
 
-      <div class="flex flex-wrap gap-4 items-start space-y-4">
-        <SkillTag>JavaScript</SkillTag>
-        <SkillTag>TypeScript</SkillTag>
-        <SkillTag>React</SkillTag>
-        <SkillTag>Astro</SkillTag>
-      </div>
+    <!-- Gradient Border Section -->
+    <section class="space-y-8 p-8 border border-accent rounded-xl">
+      <h2 class="text-2xl font-semibold mb-4">Gradient Borders</h2>
+      <p class="text-sm text-text/80 mb-4">
+        Decorative borders with gradient effects and optional animation
+      </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {
-          experiences.map((exp) => (
-            <ExperienceCard
-              jobTitle={exp.data.jobTitle}
-              companyName={exp.data.companyName}
-              startDate={exp.data.startDate}
-              endDate={exp.data.endDate}
-              skills={exp.data.skills}
-              description={exp.data.description}
-            />
-          ))
-        }
-      </div>
-
-      <div
-        class=" flex flex-col align-start p-4 bg-secondary border border-accent rounded-2xl"
-      >
-        <GradientBorder animated={true}>
-          <Button variant={"gradient"}>Select Experience</Button>
+      <div class="space-y-4">
+        <GradientBorder>
+          <div class="p-4">Animated Gradient Border</div>
         </GradientBorder>
-      </div>
 
-      <div class="w-full flex flex-col items-center space-y-4">
-        <ExperienceSelector experiences={experiences} />
+
       </div>
-    </div>
-  </header>
+    </section>
+  </main>
 </Layout>
