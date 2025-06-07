@@ -15,7 +15,6 @@ skills.forEach(({ categories }) =>
   })
 );
 const tabs = [...baseTabs, ...Array.from(categorySet)];
-const selected = tabs[0];
 ---
 
 <div class="flex flex-col items-center">
@@ -26,16 +25,15 @@ const selected = tabs[0];
     id="skill-tabs"
   >
     {
-      tabs.map((tab) => (
+      tabs.map((tab, i) => (
         <button
-          id={`tab-${tab.toLowerCase()}`}
           role="tab"
-          aria-selected={selected === tab}
-          tabindex={selected === tab ? 0 : -1}
-          class={`px-4 py-2 rounded-full transition duration-200 ${
-            selected === tab ? "text-accent" : "text-subtext hover:text-white"
-          }`}
+          type="button"
+          aria-selected="false"
+          tabindex="-1"
+          class="px-4 py-2 rounded-full transition duration-200 text-subtext hover:text-white"
           data-category={tab}
+          data-tab-index={i}
         >
           {tab}
         </button>
@@ -44,7 +42,7 @@ const selected = tabs[0];
   </div>
 
   <div
-    class="grid grid-cols-2  lg:grid-cols-3 gap-6  px-2 w-full content-center justify-items-center md:gap-8"
+    class="grid grid-cols-2 lg:grid-cols-3 gap-6 px-2 w-full content-center justify-items-center md:gap-8"
     id="skill-cards"
   >
     {
@@ -55,9 +53,7 @@ const selected = tabs[0];
           proficiency={proficiency}
           categories={categories}
           data-categories={categories.join(",")}
-          class={`skill-card ${
-            categories.includes(selected) ? "block" : "hidden"
-          }`}
+          class="skill-card hidden"
         />
       ))
     }
@@ -65,8 +61,12 @@ const selected = tabs[0];
 </div>
 
 <script type="module" defer>
-  const tabs = Array.from(document.querySelectorAll('#skill-tabs [role="tab"]'));
+  const tabs = Array.from(
+    document.querySelectorAll('#skill-tabs [role="tab"]')
+  );
   const cards = Array.from(document.querySelectorAll(".skill-card"));
+
+  let currentTabIdx = 0;
 
   function filterCards(category) {
     cards.forEach((card) => {
@@ -81,38 +81,56 @@ const selected = tabs[0];
     });
   }
 
-  function selectTab(tab) {
-    tabs.forEach((t) => {
-      t.setAttribute("aria-selected", "false");
-      t.tabIndex = -1;
-      t.classList.remove("text-accent");
-      t.classList.add("text-subtext");
-    });
-    tab.setAttribute("aria-selected", "true");
-    tab.tabIndex = 0;
-    tab.classList.add("text-accent");
-    tab.classList.remove("text-subtext");
-    filterCards(tab.dataset.category);
-    tab.focus();
+  function selectTab(newIdx) {
+    if (newIdx === currentTabIdx) return;
+
+    // Update previous tab
+    const prevTab = tabs[currentTabIdx];
+    prevTab.setAttribute("aria-selected", "false");
+    prevTab.tabIndex = -1;
+    prevTab.classList.remove("text-accent");
+    prevTab.classList.add("text-subtext");
+
+    // Update new tab
+    const newTab = tabs[newIdx];
+    newTab.setAttribute("aria-selected", "true");
+    newTab.tabIndex = 0;
+    newTab.classList.add("text-accent");
+    newTab.classList.remove("text-subtext");
+
+    // Update cards
+    filterCards(newTab.dataset.category);
+
+    currentTabIdx = newIdx;
   }
 
+  // Set the first tab as active on load
+  if (tabs.length) {
+    tabs[0].setAttribute("aria-selected", "true");
+    tabs[0].tabIndex = 0;
+    tabs[0].classList.add("text-accent");
+    tabs[0].classList.remove("text-subtext");
+    filterCards(tabs[0].dataset.category);
+  }
 
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => selectTab(tab));
+  tabs.forEach((tab, idx) => {
+    tab.addEventListener("click", (e) => {
+      e.preventDefault();
+      selectTab(idx);
+    });
     tab.addEventListener("keydown", (e) => {
-      let idx = tabs.indexOf(tab);
       if (e.key === "ArrowRight") {
         e.preventDefault();
-        selectTab(tabs[(idx + 1) % tabs.length]);
+        selectTab((idx + 1) % tabs.length);
       } else if (e.key === "ArrowLeft") {
         e.preventDefault();
-        selectTab(tabs[(idx - 1 + tabs.length) % tabs.length]);
+        selectTab((idx - 1 + tabs.length) % tabs.length);
       } else if (e.key === "Home") {
         e.preventDefault();
-        selectTab(tabs[0]);
+        selectTab(0);
       } else if (e.key === "End") {
         e.preventDefault();
-        selectTab(tabs[tabs.length - 1]);
+        selectTab(tabs.length - 1);
       }
     });
   });

@@ -1,22 +1,31 @@
 <div
   data-cursor-outline
-  class="hidden lg:block cursor-outline size-26 z-50 rounded-full border-2 border-accent/40 fixed top-0 left-0 pointer-events-none -translate-x-1/2 -translate-y-1/2"
+  class="hidden cursor-outline size-26 z-50 rounded-full border-2 border-accent/40 fixed top-0 left-0 pointer-events-none -translate-x-1/2 -translate-y-1/2"
 >
 </div>
 <script>
   const cursorOutline = document.querySelector("[data-cursor-outline]");
 
-  document.addEventListener("mousemove", (e) => {
-    cursorOutline?.animate(
-      {
-        left: `${e.clientX}px`,
-        top: `${e.clientY}px`,
-      },
-      {
-        duration: 600,
-        easing: "ease-in-out",
-        fill: "forwards",
-      }
-    );
-  });
+  // Check if the device is touch-enabled
+  const isTouchDevice =
+    "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+  // Only show and animate cursor if not a touch device
+  if (!isTouchDevice) {
+    cursorOutline?.classList.remove("hidden");
+
+    document.addEventListener("mousemove", (e) => {
+      cursorOutline?.animate(
+        {
+          left: `${e.clientX}px`,
+          top: `${e.clientY}px`,
+        },
+        {
+          duration: 600,
+          easing: "ease-in-out",
+          fill: "forwards",
+        }
+      );
+    });
+  }
 </script>
