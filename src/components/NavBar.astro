@@ -1,9 +1,14 @@
 ---
+import { Icon } from "astro-icon/components";
 const navItems = ['About Me', 'Experience', 'Skills', 'Contact']
 ---
 
-<nav class="flex py-12 h-full justify-center backdrop-blur items-center sticky top-0 z-20">
-    <ul class="flex justify-center gap-8 w-fit text-text" aria-label="Main navigation" role="navigation">
+<nav class="flex py-10 h-full justify-center backdrop-blur items-center sticky top-0 z-20">
+    <ul class="flex justify-center gap-8 w-fit text-text relative" aria-label="Main navigation" role="navigation">
+        <li>
+            <Icon name="logo-dark" size={42} class="absolute top-1/2 -left-8 -translate-y-1/2" />
+            <Icon name="logo-dark" size={42} class="absolute top-1/2 -left-8 -translate-y-1/2 transition-all duration-300 hover:blur-xl" />
+        </li>
         {navItems.map((item) => (
             <li class="text-text font-Nunito text-xl hover:text-primary transition-all duration-300">
                 <a href={`#${item.toLowerCase().replace(' ', '-')}`}>{item}</a>
