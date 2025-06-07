@@ -44,7 +44,7 @@ const selected = tabs[0];
   </div>
 
   <div
-    class="grid grid-cols-2  lg:grid-cols-3 gap-6 max-w-6xl px-2 w-full content-center justify-items-center"
+    class="grid grid-cols-2  lg:grid-cols-3 gap-6  px-2 w-full content-center justify-items-center md:gap-8"
     id="skill-cards"
   >
     {
@@ -65,7 +65,7 @@ const selected = tabs[0];
 </div>
 
 <script type="module" defer>
-  const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+  const tabs = Array.from(document.querySelectorAll('#skill-tabs [role="tab"]'));
   const cards = Array.from(document.querySelectorAll(".skill-card"));
 
   function filterCards(category) {

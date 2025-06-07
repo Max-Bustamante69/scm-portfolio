@@ -28,7 +28,8 @@ const iconName = name
 
 <article
   class:list={[
-    "skill-card border-2 w-full group  p-6 rounded-2xl bg-card-background/60  border-accent/30 flex flex-col gap-4 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-accent/60",
+    "skill-card  border-2 w-full group  p-6 rounded-2xl bg-card-background/60  border-accent/30 flex flex-col gap-4 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-accent/60",
+    "md:p-8 md:gap-12",
     className,
   ]}
   data-categories={categories.join(",")}
@@ -52,17 +53,17 @@ const iconName = name
   <div class="space-y-2">
     <h3
       id={`skill-${iconName}-title`}
-      class="text-accent font-semibold text-lg"
+      class="text-accent font-semibold"
     >
       {name}
     </h3>
-    <p class="text-subtext text-sm leading-relaxed">{description}</p>
+    <p class="text-subtext  leading-relaxed">{description}</p>
   </div>
 
-  <div class="mt-auto space-y-3">
+  <div class="mt-auto space-y-6">
     <div class="flex justify-between items-center">
-      <span class="text-sm text-primary font-medium">Proficiency</span>
-      <span class="text-primary text-sm font-bold group-hover:text-accent transition-colors duration-700">{proficiency}%</span>
+      <span class=" text-primary font-medium">Proficiency</span>
+      <span class="text-primary  font-bold group-hover:text-accent transition-colors duration-700">{proficiency}%</span>
     </div>
     <div
       class="w-full h-3 rounded-full bg-foreground/20 overflow-hidden"
