@@ -22,7 +22,7 @@ const tabs = [...baseTabs, ...Array.from(categorySet)];
     role="tablist"
     aria-label="Skill categories"
     class="flex bg-card-background/60 rounded-full px-4 py-2 space-x-6 text-xl shadow-lg mb-10"
-    id="skill-tabs"
+    id="skills-tablist"
   >
     {
       tabs.map((tab, i) => (
@@ -32,8 +32,9 @@ const tabs = [...baseTabs, ...Array.from(categorySet)];
           aria-selected="false"
           tabindex="-1"
           class="px-4 py-2 rounded-full transition duration-200 text-subtext hover:text-white"
-          data-category={tab}
-          data-tab-index={i}
+          data-skill-category={tab}
+          data-skill-tab-index={i}
+          id={`skill-tab-${i}`}
         >
           {tab}
         </button>
@@ -43,7 +44,7 @@ const tabs = [...baseTabs, ...Array.from(categorySet)];
 
   <div
     class="grid grid-cols-2 lg:grid-cols-3 gap-6 px-2 w-full content-center justify-items-center md:gap-8"
-    id="skill-cards"
+    id="skills-cards-container"
   >
     {
       skills.map(({ skillName, description, proficiency, categories }) => (
@@ -52,7 +53,7 @@ const tabs = [...baseTabs, ...Array.from(categorySet)];
           description={description}
           proficiency={proficiency}
           categories={categories}
-          data-categories={categories.join(",")}
+          data-skill-categories={categories.join(",")}
           class="skill-card hidden"
         />
       ))
@@ -61,16 +62,16 @@ const tabs = [...baseTabs, ...Array.from(categorySet)];
 </div>
 
 <script type="module" defer>
-  const tabs = Array.from(
-    document.querySelectorAll('#skill-tabs [role="tab"]')
+  const skillTabs = Array.from(
+    document.querySelectorAll('#skills-tablist [role="tab"]')
   );
-  const cards = Array.from(document.querySelectorAll(".skill-card"));
+  const skillCards = Array.from(document.querySelectorAll(".skill-card"));
 
-  let currentTabIdx = 0;
+  let currentSkillTabIdx = 0;
 
-  function filterCards(category) {
-    cards.forEach((card) => {
-      const cardCategories = card.dataset.categories.split(",");
+  function filterSkillCards(category) {
+    skillCards.forEach((card) => {
+      const cardCategories = card.dataset.skillCategories.split(",");
       if (cardCategories.includes(category)) {
         card.classList.remove("hidden");
         card.classList.add("block");
@@ -81,56 +82,56 @@ const tabs = [...baseTabs, ...Array.from(categorySet)];
     });
   }
 
-  function selectTab(newIdx) {
-    if (newIdx === currentTabIdx) return;
+  function selectSkillTab(newIdx) {
+    if (newIdx === currentSkillTabIdx) return;
 
     // Update previous tab
-    const prevTab = tabs[currentTabIdx];
+    const prevTab = skillTabs[currentSkillTabIdx];
     prevTab.setAttribute("aria-selected", "false");
     prevTab.tabIndex = -1;
     prevTab.classList.remove("text-accent");
     prevTab.classList.add("text-subtext");
 
     // Update new tab
-    const newTab = tabs[newIdx];
+    const newTab = skillTabs[newIdx];
     newTab.setAttribute("aria-selected", "true");
     newTab.tabIndex = 0;
     newTab.classList.add("text-accent");
     newTab.classList.remove("text-subtext");
 
     // Update cards
-    filterCards(newTab.dataset.category);
+    filterSkillCards(newTab.dataset.skillCategory);
 
-    currentTabIdx = newIdx;
+    currentSkillTabIdx = newIdx;
   }
 
   // Set the first tab as active on load
-  if (tabs.length) {
-    tabs[0].setAttribute("aria-selected", "true");
-    tabs[0].tabIndex = 0;
-    tabs[0].classList.add("text-accent");
-    tabs[0].classList.remove("text-subtext");
-    filterCards(tabs[0].dataset.category);
+  if (skillTabs.length) {
+    skillTabs[0].setAttribute("aria-selected", "true");
+    skillTabs[0].tabIndex = 0;
+    skillTabs[0].classList.add("text-accent");
+    skillTabs[0].classList.remove("text-subtext");
+    filterSkillCards(skillTabs[0].dataset.skillCategory);
   }
 
-  tabs.forEach((tab, idx) => {
+  skillTabs.forEach((tab, idx) => {
     tab.addEventListener("click", (e) => {
       e.preventDefault();
-      selectTab(idx);
+      selectSkillTab(idx);
     });
     tab.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight") {
         e.preventDefault();
-        selectTab((idx + 1) % tabs.length);
+        selectSkillTab((idx + 1) % skillTabs.length);
       } else if (e.key === "ArrowLeft") {
         e.preventDefault();
-        selectTab((idx - 1 + tabs.length) % tabs.length);
+        selectSkillTab((idx - 1 + skillTabs.length) % skillTabs.length);
       } else if (e.key === "Home") {
         e.preventDefault();
-        selectTab(0);
+        selectSkillTab(0);
       } else if (e.key === "End") {
         e.preventDefault();
-        selectTab(tabs.length - 1);
+        selectSkillTab(skillTabs.length - 1);
       }
     });
   });

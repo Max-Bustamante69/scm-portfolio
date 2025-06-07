@@ -11,7 +11,7 @@ const selectedIndex = 0;
 ---
 
 <section
-  id="experience-selector"
+  id="experience-section"
   aria-label="Professional Experience"
   class="flex w-full gap-12 lg:justify-between flex-col lg:flex-row"
 >
@@ -20,6 +20,7 @@ const selectedIndex = 0;
     role="tablist"
     aria-orientation="vertical"
     aria-label="Experience tabs"
+    id="experience-tablist"
   >
     {
       experiences.map((experience, index) => {
@@ -44,7 +45,7 @@ const selectedIndex = 0;
     }
   </div>
 
-  <div class="relative lg:w-1/2">
+  <div class="relative lg:w-1/2" id="experience-panels-container">
     {
       experiences.map((experience, index) => {
         const {
@@ -82,58 +83,68 @@ const selectedIndex = 0;
 </section>
 
 <script>
-  const selectedClass = "bg-secondary/40";
-  const tabs = document.querySelectorAll<HTMLElement>('[role="tab"]');
-  const panels = document.querySelectorAll<HTMLElement>('[role="tabpanel"]');
-  let currentIndex = 0;
+  const experienceSelectedClass = "bg-secondary/40";
+  const experienceTabs = document.querySelectorAll<HTMLElement>(
+    '#experience-tablist [role="tab"]'
+  );
+  const experiencePanels = document.querySelectorAll<HTMLElement>(
+    '#experience-panels-container [role="tabpanel"]'
+  );
+  let currentExperienceIndex = 0;
 
-  function switchTab(index: number) {
-    const oldTab = tabs[currentIndex];
-    const newTab = tabs[index];
+  function switchExperienceTab(index: number) {
+    const oldTab = experienceTabs[currentExperienceIndex];
+    const newTab = experienceTabs[index];
 
     // Update tabs
     oldTab.setAttribute("aria-selected", "false");
-    oldTab.classList.remove(selectedClass);
+    oldTab.classList.remove(experienceSelectedClass);
     oldTab.tabIndex = -1;
 
     newTab.setAttribute("aria-selected", "true");
-    newTab.classList.add(selectedClass);
+    newTab.classList.add(experienceSelectedClass);
     newTab.tabIndex = 0;
     newTab.focus();
 
     // Update panels
-    panels[currentIndex].hidden = true;
-    panels[currentIndex].classList.add("hidden");
-    panels[currentIndex].classList.remove("block");
+    experiencePanels[currentExperienceIndex].hidden = true;
+    experiencePanels[currentExperienceIndex].classList.add("hidden");
+    experiencePanels[currentExperienceIndex].classList.remove("block");
 
-    panels[index].hidden = false;
-    panels[index].classList.remove("hidden");
-    panels[index].classList.add("block");
+    experiencePanels[index].hidden = false;
+    experiencePanels[index].classList.remove("hidden");
+    experiencePanels[index].classList.add("block");
 
-    currentIndex = index;
+    currentExperienceIndex = index;
   }
 
   // Handle clicks
-  tabs.forEach((tab) => {
+  experienceTabs.forEach((tab) => {
     tab.addEventListener("click", () => {
       const index = Number(tab.getAttribute("data-experience-index"));
-      switchTab(index);
+      switchExperienceTab(index);
     });
   });
 
   // Handle keyboard navigation
-  tabs.forEach((tab) => {
+  experienceTabs.forEach((tab) => {
     tab.addEventListener("keydown", (e: KeyboardEvent) => {
-      let targetIndex = currentIndex;
+      let targetIndex = currentExperienceIndex;
 
       switch (e.key) {
         case "ArrowUp":
           e.preventDefault();
-          targetIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
+          targetIndex =
+            currentExperienceIndex > 0
+              ? currentExperienceIndex - 1
+              : experienceTabs.length - 1;
           break;
         case "ArrowDown":
           e.preventDefault();
-          targetIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
+          targetIndex =
+            currentExperienceIndex < experienceTabs.length - 1
+              ? currentExperienceIndex + 1
+              : 0;
           break;
         case "Home":
           e.preventDefault();
@@ -141,13 +152,13 @@ const selectedIndex = 0;
           break;
         case "End":
           e.preventDefault();
-          targetIndex = tabs.length - 1;
+          targetIndex = experienceTabs.length - 1;
           break;
         default:
           return;
       }
 
-      switchTab(targetIndex);
+      switchExperienceTab(targetIndex);
     });
   });
 </script>
