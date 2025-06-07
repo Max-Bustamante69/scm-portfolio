@@ -6,8 +6,6 @@ import { getCollection, type CollectionEntry } from "astro:content";
 type Experience = CollectionEntry<"experiences">;
 
 const experiences: Experience[] = await getCollection("experiences");
-const selectedClass = "bg-secondary/40";
-const selectedIndex = 0;
 ---
 
 <section
@@ -30,11 +28,10 @@ const selectedIndex = 0;
             <ExperienceSummary
               role="tab"
               id={`experience-tab-${index}`}
-              aria-selected={index === selectedIndex}
+              aria-selected="false"
               aria-controls={`experience-panel-${index}`}
-              tabindex={index === selectedIndex ? 0 : -1}
+              tabindex="-1"
               data-experience-index={index}
-              class={index === selectedIndex ? selectedClass : ""}
               jobTitle={jobTitle}
               companyName={companyName}
               icon={icon}
@@ -63,8 +60,8 @@ const selectedIndex = 0;
             id={`experience-panel-${index}`}
             aria-labelledby={`experience-tab-${index}`}
             tabindex="0"
-            class={index === selectedIndex ? "block" : "hidden"}
-            hidden={index !== selectedIndex}
+            class="hidden"
+            hidden
           >
             <ExperienceCard
               jobTitle={jobTitle}
@@ -116,6 +113,17 @@ const selectedIndex = 0;
     experiencePanels[index].classList.add("block");
 
     currentExperienceIndex = index;
+  }
+
+  // Set the first tab as active on load
+  if (experienceTabs.length) {
+    experienceTabs[0].setAttribute("aria-selected", "true");
+    experienceTabs[0].tabIndex = 0;
+    experienceTabs[0].classList.add(experienceSelectedClass);
+
+    experiencePanels[0].hidden = false;
+    experiencePanels[0].classList.remove("hidden");
+    experiencePanels[0].classList.add("block");
   }
 
   // Handle clicks
