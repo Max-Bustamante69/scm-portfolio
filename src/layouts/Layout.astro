@@ -71,7 +71,8 @@ const image = "/logo/logo-light.webp";
     
     <script is:inline>
       function setVH() {
-        const vh = window.innerHeight * 0.01;
+        // Use the smaller of screen.height or window.innerHeight for stability
+        const vh = Math.min(screen.height, window.innerHeight) * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
       }
       
