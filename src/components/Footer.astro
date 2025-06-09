@@ -29,8 +29,7 @@ import Button from "@/components/Button.astro";
   // Set initial height
   setFooterHeight();
 
-  // Update on resize/orientation change
-  window.addEventListener("resize", setFooterHeight);
+  // Update on orientation change
   window.addEventListener("orientationchange", () => {
     setTimeout(setFooterHeight, 100);
   });
