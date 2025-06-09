@@ -33,9 +33,10 @@ const buttonVariants = cva(
   },
 );
 
-interface Props extends astroHTML.JSX.ButtonHTMLAttributes {
+interface Props {
   variant?: 'default' | 'gradient' | 'contact';
-  size?: 'default' | 'sm' | 'lg' | 'icon' | 'xl' ;
+  size?: 'default' | 'sm' | 'lg' | 'icon' | 'xl';
+  class?: string;
 
 }
 
