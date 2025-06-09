@@ -1,6 +1,6 @@
 ---
 skillName: "TailwindCSS"
-description: "Utility-first CSS framework for rapid UI development and consistent design systems"
-categories: ["Frontend"]
-proficiency: 88
+description: "3+ years of Tailwind CSS experience. Utility-first CSS framework for rapid UI development, design systems, and consistent styling across component libraries."
+categories: ["Design"]
+proficiency: 90
 ---

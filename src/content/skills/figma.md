@@ -1,6 +1,6 @@
 ---
 skillName: "Figma"
-description: "Collaborative design tool for creating user interfaces and prototypes"
+description: "4+ years of Figma collaboration (2020-Present). Close collaboration with design teams at Restoration Hardware, implementing interactive UI components from design specifications."
 categories: ["Design"]
-proficiency: 65
+proficiency: 78
 ---

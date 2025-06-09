@@ -18,7 +18,9 @@ const skills = defineCollection({
     skillName: z.string(),
     description: z.string(),
     proficiency: z.number(),
-    categories: z.array(z.string()),
+    categories: z.array(
+      z.enum(["Frontend", "Backend", "Testing", "DevOps", "Design"])
+    ),
   }),
 });
 
@@ -31,5 +33,7 @@ const results = defineCollection({
 });
 
 export const collections = {
-  experiences, skills, results,
+  experiences,
+  skills,
+  results,
 };

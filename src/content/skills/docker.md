@@ -1,6 +1,6 @@
 ---
 skillName: "Docker"
-description: "Containerization platform for application deployment and microservices architecture"
-categories: ["DevOps","Tools"]
-proficiency: 72
+description: "4+ years of Docker containerization experience. Application deployment, microservices architecture, and consistent development environments across enterprise projects."
+categories: ["DevOps"]
+proficiency: 90
 ---

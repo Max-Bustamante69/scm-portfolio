@@ -1,6 +1,6 @@
 ---
 skillName: "JavaScript"
-description: "Modern ES6+ JavaScript for dynamic web applications and interactive user interfaces"
-categories: ["Frontend", "Backend"]
-proficiency: 92
+description: "10+ years of JavaScript (ES6+) mastery across all professional roles. Expert-level performance optimization, modern frameworks, and enterprise application development."
+categories: ["Frontend"]
+proficiency: 100
 ---

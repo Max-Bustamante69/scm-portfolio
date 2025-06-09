@@ -1,6 +1,6 @@
 ---
 skillName: "TypeScript"
-description: "Type-safe JavaScript development with enhanced tooling and error prevention"
-categories: ["Frontend", "Backend"]
-proficiency: 85
+description: "4+ years of TypeScript in enterprise React applications (2020-Present). Advanced typing, large-scale application architecture, and maintainable code practices."
+categories: ["Frontend"]
+proficiency: 95
 ---

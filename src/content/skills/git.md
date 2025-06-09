@@ -1,6 +1,6 @@
 ---
 skillName: "Git"
-description: "Version control system for tracking changes and collaborative development workflows"
-categories: ["DevOps", "Tools"]
-proficiency: 85
+description: "10+ years of Git version control mastery across all professional roles. Advanced branching strategies, collaborative workflows, and code management for enterprise teams."
+categories: ["DevOps"]
+proficiency: 95
 ---

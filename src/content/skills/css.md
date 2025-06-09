@@ -1,6 +1,7 @@
 ---
 skillName: "CSS"
-description: "Advanced styling with Flexbox, Grid, animations, and modern CSS features"
+description: "10+ years of CSS3/SCSS expertise across all roles. Advanced responsive design, performance optimization (50% load time reduction), animations, and modern layout techniques."
 categories: ["Frontend"]
-proficiency: 90
+proficiency: 100
 ---
+    

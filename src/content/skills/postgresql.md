@@ -1,6 +1,6 @@
 ---
 skillName: "PostgreSQL"
-description: "Advanced relational database with powerful features for complex data operations"
+description: "5+ years of PostgreSQL database experience. Advanced SQL, database design, optimization, and administration for scalable web applications and enterprise systems."
 categories: ["Backend"]
-proficiency: 70
+proficiency: 75
 ---
