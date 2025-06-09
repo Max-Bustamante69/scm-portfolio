@@ -45,7 +45,7 @@ const image = "/logo/logo-light.webp";
       media="(prefers-color-scheme: dark)"
     />
 
-    <!-- Preload custom fonts -->
+    <!-- Preload critical fonts with display=swap -->
     <link
       rel="preload"
       href="/fonts/ArchivoBlack-Regular.woff2"
@@ -60,6 +60,24 @@ const image = "/logo/logo-light.webp";
       type="font/woff2"
       crossorigin
     />
+    
+    <!-- Optimize font loading -->
+    <style>
+      @font-face {
+        font-family: "Archivo Black";
+        src: url("/fonts/ArchivoBlack-Regular.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Nunito Sans";
+        src: url("/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.woff2") format("woff2");
+        font-weight: 200 1000;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
 
     <title>{title}</title>
   </head>
