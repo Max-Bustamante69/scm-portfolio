@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import GradientBorder from "./GradientBorder.astro";
+import Image from "astro/components/Image.astro";
 
 type SkillCardProps = {
   name: string;
@@ -27,6 +28,7 @@ const iconName = icon || name
   .replace(/\s+/g, "-")
   .replace(/[^a-z0-9-]/g, "");
 
+const brokenIcons = ['python', 'nodejs','nextjs']
 ---
 
 <article
@@ -44,12 +46,25 @@ const iconName = icon || name
     <div
       class="w-16 h-16 bg-card-background rounded-xl flex items-center justify-center border border-accent/20"
     >
+      {
+        brokenIcons.includes(iconName) ? (
+          <Image
+            src={`/icons/${iconName}.svg`}
+            alt={name}
+            width={32}
+            height={32}
+            class="transition-transform duration-300 group-hover:scale-115"
+          />
+        ) : (
+      
       <Icon
         name={iconName || "react"}
         size={32}
-        class="text-accent transition-transform duration-300 group-hover:scale-110"   
+        class=" transition-transform duration-300 group-hover:scale-115"   
         aria-hidden="true"
       />
+      )
+      }
     </div>
   </GradientBorder>
 
