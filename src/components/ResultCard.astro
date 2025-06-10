@@ -1,9 +1,67 @@
 ---
 const {statistic, name, description} = Astro.props;
+
+// Extract number and non-numeric parts from statistic
+const numberMatch = statistic.match(/\d+/);
+const targetNumber = numberMatch ? parseInt(numberMatch[0]) : 0;
+const beforeNumber = statistic.substring(0, statistic.indexOf(numberMatch?.[0] || ''));
+const afterNumber = statistic.substring(statistic.indexOf(numberMatch?.[0] || '') + (numberMatch?.[0]?.length || 0));
 ---
 
 <div class="flex flex-col items-start gap-4 border-2 bg-card-background/60 border-accent/20 rounded-lg p-8 lg:border-transparent lg:bg-transparent lg:p-4">
-  <h2 class="text-white text-center">{statistic}</h2>
-  <p class="text-white font-bold text-center">{name}</p>
-  <p class="text-subtext ">{description}</p>
+  <h2 class="text-white text-center">
+    <span>{beforeNumber}</span><span class="statistic-counter" data-target={targetNumber}>0</span><span>{afterNumber}</span>
+  </h2>
+  <p class="text-white font-bold text-center  xl:text-xl">{name}</p>
+  <p class="text-subtext xl:text-xl ">{description}</p>
 </div>
+
+<script>
+  function animateCounter(element: HTMLElement, target: number) {
+    const duration = 2000; // 2 seconds
+    const start = 0;
+    const startTime = performance.now();
+    
+    function update(currentTime: number) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth animation (ease-out)
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(start + (target - start) * easeOut);
+      
+      element.textContent = current.toString();
+      
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      }
+    }
+    
+    requestAnimationFrame(update);
+  }
+  
+  // Set up intersection observer to trigger animation when element comes into view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const counter = entry.target.querySelector('.statistic-counter') as HTMLElement;
+        if (counter && !counter.classList.contains('animated')) {
+          const target = parseInt(counter.getAttribute('data-target') || '0');
+          counter.classList.add('animated');
+          animateCounter(counter, target);
+        }
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  // Observe all result cards
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.statistic-counter');
+    cards.forEach(card => {
+      const cardElement = card.closest('div');
+      if (cardElement) {
+        observer.observe(cardElement);
+      }
+    });
+  });
+</script>
