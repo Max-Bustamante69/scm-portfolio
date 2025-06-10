@@ -21,7 +21,8 @@ const skills = defineCollection({
     categories: z.array(
       z.enum(["Frontend", "Backend", "Testing", "DevOps", "Design"])
     ),
-  }),
+    icon: z.string().optional(),
+  }), 
 });
 
 const results = defineCollection({

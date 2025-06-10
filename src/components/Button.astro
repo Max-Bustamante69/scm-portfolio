@@ -37,10 +37,11 @@ interface Props {
   variant?: 'default' | 'gradient' | 'contact';
   size?: 'default' | 'sm' | 'lg' | 'icon' | 'xl';
   class?: string;
+  id?: string;
 
 }
 
-const { variant, size, class: className, ...rest } = Astro.props;
+const { variant, size, class: className, ...rest } =  Astro.props as Props;
 
 const finalClass = cn(buttonVariants({ variant, size, className }));
 ---
