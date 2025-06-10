@@ -2,14 +2,14 @@
 import { Icon } from "astro-icon/components";
 const navItems = [
   {
-    text: "About Me",
-    href: "about-me",
-    description: "Learn about Sebastian's background and expertise",
-  },
-  {
     text: "Experience",
     href: "experience",
     description: "View Sebastian's professional work experience",
+  },
+  {
+    text: "Results",
+    href: "results",
+    description: "Learn about Sebastian's results",
   },
   {
     text: "Skills",
@@ -31,7 +31,7 @@ const navItems = [
     class="flex justify-center gap-8 w-fit text-text relative"
     aria-label="Main navigation"
   >
-    <li class="relative">
+    <li class="relative ">
       <a href="#about-me" aria-label="Go to homepage">
         <Icon
           name="logo-dark"
@@ -48,7 +48,7 @@ const navItems = [
     {
       navItems.map((item) => (
         <li class="text-text font-Nunito text-xl hover:text-primary transition-all duration-300">
-          <a href={`#${item.href}`} aria-label={item.description}>
+          <a class="transition-all duration-500" href={`#${item.href}`} aria-label={item.description}>
             {item.text}
           </a>
         </li>
