@@ -47,12 +47,13 @@ const tabs = [...baseTabs, ...Array.from(categorySet)];
     id="skills-cards-container"
   >
     {
-      skills.map(({ skillName, description, proficiency, categories }) => (
+      skills.map(({ skillName, description, proficiency, categories, icon }) => (
         <SkillCard
           name={skillName}
           description={description}
           proficiency={proficiency}
           categories={categories}
+          icon={icon}
           data-skill-categories={categories.join(",")}
           class="skill-card hidden"
         />

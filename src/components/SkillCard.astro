@@ -8,6 +8,7 @@ type SkillCardProps = {
   proficiency: number;
   categories: string[];
   class?: string;
+  icon?: string;
 };
 
 const {
@@ -15,15 +16,18 @@ const {
   description,
   proficiency,
   categories,
+  icon,
   class: className = "",
   ...rest
 } = Astro.props as SkillCardProps;
 
 // Generate icon name from skill name (fallback to 'react' if specific icon doesn't exist)
-const iconName = name
+const iconName = icon || name
   .toLowerCase()
   .replace(/\s+/g, "-")
   .replace(/[^a-z0-9-]/g, "");
+
+console.log(iconName)
 ---
 
 <article
@@ -44,7 +48,7 @@ const iconName = name
       <Icon
         name={iconName || "react"}
         size={32}
-        class="text-accent transition-transform duration-300 group-hover:scale-110"
+        class="text-accent transition-transform duration-300 group-hover:scale-110"   
         aria-hidden="true"
       />
     </div>
