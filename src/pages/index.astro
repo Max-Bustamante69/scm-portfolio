@@ -7,6 +7,7 @@ import GradientBorder from "@/components/GradientBorder.astro";
 import SkillTabs from "@/components/SkillTabs.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import ResultCard from "@/components/ResultCard.astro";
+import {Image} from "astro:assets";
 
 type Result = CollectionEntry<"results">;
 
@@ -19,12 +20,21 @@ const results: Result[] = await getCollection("results");
 <Layout>
   <main class="space-y-62 my-24 w-fit px-12 max-w-[1800px]">
     <header
-      class="flex flex-col w-full scroll-mt-28 lg:w-2/3 xl:w-1/2 items-start gap-12"
+      class="flex flex-col w-full  scroll-mt-28 lg:w-2/3 xl:w-1/2 items-start gap-12 "
       id="about-me"
       aria-label="Introduction"
     >
       <div class="flex items-center gap-12">
-        <div class="size-32 rounded-full bg-secondary"></div>
+        <div class="w-40 h-40 rounded-full mask-linear-180 flex items-end justify-center  mask-linear-from-70%  bg-secondary/65">
+
+          <Image
+          src="/pfp/sebastian.png"
+          alt="Sebastian Correa"
+          width={128}
+          height={128}
+          
+          />
+        </div>
         <GradientBorder class="w-fit">
           <Button class="text-lg bg-background" size="lg"
             >Available for Work</Button
@@ -54,7 +64,7 @@ const results: Result[] = await getCollection("results");
         </a>
         <GradientBorder class="w-1/2 min-h-[44px]">
           <Button
-            id="cvButton"
+            id="cv-button"
             variant="gradient"
             class="w-full h-full"
             aria-label="Download Sebastian's CV"
@@ -132,7 +142,7 @@ const results: Result[] = await getCollection("results");
 </Layout>
 
 <script>
-  document.getElementById("cvButton")?.addEventListener("click", () => {
+  document.getElementById("cv-button")?.addEventListener("click", () => {
     const link = document.createElement("a");
     link.href = "/cv/Sebastian Correa Senior React Developer.pdf";
     link.download = "Sebastian Correa Senior React Developer.pdf";
