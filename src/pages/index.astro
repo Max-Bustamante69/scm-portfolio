@@ -18,9 +18,9 @@ const results: Result[] = await getCollection("results");
 ---
 
 <Layout>
-  <main class="space-y-62 my-24 w-fit px-12 max-w-[1800px]">
+  <main class="space-y-90 my-24 w-fit px-12 max-w-[1800px]">
     <header
-      class="flex flex-col w-full  scroll-mt-28 lg:w-2/3 xl:w-1/2 items-start gap-12 "
+      class="flex flex-col w-full mt-42  scroll-mt-28 lg:w-2/3  items-start gap-12 "
       id="about-me"
       aria-label="Introduction"
     >
@@ -46,7 +46,7 @@ const results: Result[] = await getCollection("results");
         Hey, I'm Sebastian <br />
         Web <GradientText>Developer</GradientText>
       </h1>
-      <p class="text-text leading-8">
+      <p class="text-text leading-8 text-2xl">
         Senior Frontend Engineer (10+ yrs), specializing in high-performance UIs
         with React and modern JS frameworks. Delivering scalable digital
         experiences for enterprise clients.
@@ -87,8 +87,9 @@ const results: Result[] = await getCollection("results");
       <ExperienceSelector />
     </section>
 
-    <section>
-      <GradientBorder class="rounded-lg hidden lg:block">
+    <section id="results" class="scroll-mt-28">
+      <GradientBorder blur class="rounded-lg hidden lg:block">
+        <GradientBorder class="rounded-lg">
         <div
           class="flex flex-col scroll-mt-28 items-start bg-card-background w-full gap-12 p-12 rounded-lg"
           id="testimonials"
@@ -96,7 +97,7 @@ const results: Result[] = await getCollection("results");
           <h2 class="font-extrabold mb-8 text-center">
             Delivering <GradientText>Quality</GradientText> Results
           </h2>
-          <div class="flex items-center gap-12">
+          <div class="flex items-start gap-12">
             {
               results.map((result) => (
                 <ResultCard
@@ -108,6 +109,7 @@ const results: Result[] = await getCollection("results");
             }
           </div>
         </div>
+      </GradientBorder>
       </GradientBorder>
 
       <div class="flex flex-col gap-12 lg:hidden ">
@@ -134,7 +136,8 @@ const results: Result[] = await getCollection("results");
     >
       <h2 class="font-extrabold mb-8 text-white text-center">
         Skills
-        <GradientText> & Technologies </GradientText>
+        <GradientText> &  </GradientText>
+        Technologies
       </h2>
       <SkillTabs />
     </section>
