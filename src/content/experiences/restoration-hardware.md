@@ -2,7 +2,7 @@
 icon: "restoration-hardware-logo"
 jobTitle: "AEM/React Developer"
 companyName: "Restoration Hardware"
-startDate: "2020"
+startDate: 2020
 endDate: "Present"
 skills:
   ["React", "AEM", "TypeScript", "Storybook", "Jest", "Cypress", "SSR", "Figma"]
@@ -12,4 +12,5 @@ description: |
   - Championed code quality and ensured component reliability by achieving 90%+ automated frontend test coverage using Jest and Cypress
   - Architected and implemented a Storybook component library, establishing a foundation for reusable software components and patterns and increasing development velocity by 25%
   - Collaborated closely with design teams to refine and implement interactive UI components from Figma designs
+link: "https://rh.com/us/en/"
 ---

@@ -4,12 +4,13 @@ const experiences = defineCollection({
   schema: z.object({
     jobTitle: z.string(),
     companyName: z.string(),
-    startDate: z.string(),
-    endDate: z.string(),
+    startDate: z.number(),
+    endDate: z.union([z.number(), z.literal("Present")]),
     skills: z.array(z.string()),
     description: z.string(),
     icon: z.string().optional(),
     percentage: z.number().optional(),
+    link: z.string().optional(),
   }),
 });
 
