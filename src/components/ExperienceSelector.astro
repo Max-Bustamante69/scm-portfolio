@@ -6,6 +6,14 @@ import { getCollection, type CollectionEntry } from "astro:content";
 type Experience = CollectionEntry<"experiences">;
 
 const experiences: Experience[] = await getCollection("experiences");
+const sortedExperiences = experiences.sort((a, b) => {
+  const aStartDate = a.data.startDate;
+  const bStartDate = b.data.startDate;
+  if (aStartDate === bStartDate) {
+    return 0;
+  }
+  return aStartDate < bStartDate ? 1 : -1;
+});
 ---
 
 <section
@@ -21,8 +29,8 @@ const experiences: Experience[] = await getCollection("experiences");
     id="experience-tablist"
   >
     {
-      experiences.map((experience, index) => {
-        const { jobTitle, companyName, icon } = experience.data;
+      sortedExperiences.map((experience, index) => {
+        const { jobTitle, companyName, icon, link } = experience.data;
         return (
           <div role="presentation">
             <ExperienceSummary
@@ -35,6 +43,7 @@ const experiences: Experience[] = await getCollection("experiences");
               jobTitle={jobTitle}
               companyName={companyName}
               icon={icon}
+              link={link}
             />
           </div>
         );
@@ -44,7 +53,7 @@ const experiences: Experience[] = await getCollection("experiences");
 
   <div class="relative lg:w-1/2" id="experience-panels-container">
     {
-      experiences.map((experience, index) => {
+      sortedExperiences.map((experience, index) => {
         const {
           jobTitle,
           companyName,
@@ -53,6 +62,7 @@ const experiences: Experience[] = await getCollection("experiences");
           skills,
           description,
           icon,
+          link,
         } = experience.data;
         return (
           <div
@@ -71,6 +81,7 @@ const experiences: Experience[] = await getCollection("experiences");
               skills={skills}
               description={description}
               icon={icon}
+              link={link}
             />
           </div>
         );

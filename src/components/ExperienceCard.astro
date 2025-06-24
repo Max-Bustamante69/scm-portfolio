@@ -19,6 +19,7 @@ const {
   description,
   icon,
   class: className = "",
+  link,
   ...rest
 } = Astro.props as ExperienceCardProps;
 ---
@@ -46,6 +47,13 @@ const {
             {companyName} • {startDate} - {endDate}
           </p>
         </div>
+        {
+          link && (
+            <a href={link} target="_blank" class="border rounded-md p-1 ml-auto mr-6">
+              <Icon size={32} name="arrow-up-right" class="hover:scale-120 transition-all duration-400 ease-in-out" />
+            </a>
+          )
+        }
       </header>
       <p
         class="mb-2 pr-4 text-text  whitespace-pre-line no-scrollbar text-lg h-[450px] overflow-y-auto "
