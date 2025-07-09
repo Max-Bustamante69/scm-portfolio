@@ -70,6 +70,21 @@ const tabs = [...baseTabs, ...Array.from(categorySet)];
 
   let currentSkillTabIdx = 0;
 
+  function animateBars() {
+  // Animate all visible bars
+  document.querySelectorAll('.skill-card.block [data-animate-bar]').forEach(bar => {
+    bar.style.transition = "none"; // Remove transition for reset
+    bar.style.width = '0%';
+    // Force reflow
+    void bar.offsetWidth;
+    // Now add the transition back and animate to target width
+    bar.style.transition = ""; // Let Tailwind's classes handle it
+    requestAnimationFrame(() => {
+      bar.style.width = bar.getAttribute('data-target-width') + '%';
+    });
+  });
+}
+
   function filterSkillCards(category) {
     skillCards.forEach((card) => {
       const cardCategories = card.dataset.skillCategories.split(",");
@@ -81,6 +96,7 @@ const tabs = [...baseTabs, ...Array.from(categorySet)];
         card.classList.add("hidden");
       }
     });
+    animateBars();
   }
 
   function selectSkillTab(newIdx) {
@@ -136,4 +152,7 @@ const tabs = [...baseTabs, ...Array.from(categorySet)];
       }
     });
   });
+
+  // Animate bars on initial load (in case the first tab is already shown)
+  animateBars();
 </script>

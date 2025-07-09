@@ -33,13 +33,13 @@ const brokenIcons = ['python', 'nodejs','nextjs']
 
 <article
   class:list={[
-    "skill-card  border-2 w-full group  p-6 rounded-2xl bg-card-background/60  border-accent/30 flex flex-col gap-10 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-accent/60",
+    "skill-card border-2 w-full group p-6 rounded-2xl bg-card-background/60 border-accent/30 flex flex-col gap-10 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-accent/60",
     "md:p-8 md:gap-12",
     className,
   ]}
-  data-categories={categories.join(",")}
+  data-skill-categories={categories.join(",")}
   role="article"
-  aria-labelledby={`skill-${iconName}-tit0le`}
+  aria-labelledby={`skill-${iconName}-title`}
   {...rest}
 >
   <GradientBorder class="w-fit rounded-xl">
@@ -56,14 +56,13 @@ const brokenIcons = ['python', 'nodejs','nextjs']
             class="transition-transform duration-300 group-hover:scale-115"
           />
         ) : (
-      
-      <Icon
-        name={iconName || "react"}
-        size={32}
-        class=" transition-transform duration-300 group-hover:scale-115"   
-        aria-hidden="true"
-      />
-      )
+          <Icon
+            name={iconName || "react"}
+            size={32}
+            class="transition-transform duration-300 group-hover:scale-115"
+            aria-hidden="true"
+          />
+        )
       }
     </div>
   </GradientBorder>
@@ -75,13 +74,13 @@ const brokenIcons = ['python', 'nodejs','nextjs']
     >
       {name}
     </h3>
-    <p class="text-text  leading-relaxed">{description}</p>
+    <p class="text-text leading-relaxed">{description}</p>
   </div>
 
-  <div class="mt-auto space-y-6 ">
+  <div class="mt-auto space-y-6">
     <div class="flex justify-between items-center">
-      <span class=" text-primary font-medium">Proficiency</span>
-      <span class="text-primary  font-bold group-hover:text-accent transition-colors duration-700">{proficiency}%</span>
+      <span class="text-primary font-medium">Proficiency</span>
+      <span class="text-primary font-bold group-hover:text-accent transition-colors duration-700">{proficiency}%</span>
     </div>
     <div
       class="w-full h-3 rounded-full bg-foreground/20 overflow-hidden"
@@ -89,15 +88,16 @@ const brokenIcons = ['python', 'nodejs','nextjs']
       aria-label={`${name} proficiency: ${proficiency} percent`}
     >
       <div
-        class="h-full transition-all duration-700 ease-out rounded-full bg-gradient-to-r from-gradient-start  to-gradient-end xl:opacity-50 xl:group-hover:opacity-100  "
-        style={`width: ${proficiency}%`}
+        class="h-full transition-all duration-700 ease-out rounded-full bg-gradient-to-r from-gradient-start to-gradient-end xl:opacity-50 xl:group-hover:opacity-100"
+        style="width: 0%"
+        data-animate-bar
+        data-target-width={proficiency}
         role="progressbar"
         aria-valuenow={proficiency}
         aria-valuemin="0"
         aria-valuemax="100"
         aria-label={`${name} proficiency level`}
-      >
-      </div>
+      ></div>
     </div>
   </div>
 </article>
